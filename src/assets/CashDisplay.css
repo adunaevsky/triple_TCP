@@ -1,0 +1,35 @@
+.cashBox {
+    fill: #231f20;
+    stroke: #5b5b5b;
+    stroke-miterlimit: 10;
+}
+
+@media all and (min-aspect-ratio: 970 / 600) {
+    /*LANDSCAPE MODE*/
+    .cashDisplays {
+        width: 30%;
+        float: right;
+        margin-right: 1%;
+        margin-top: 1%;
+    }
+}
+
+@media all and (max-aspect-ratio: 520 / 600) {
+    /*PORTRAIT MODE*/
+    .cashDisplays {
+        width: 36%;
+        float: right;
+        margin-right: 1%;
+        margin-top: 1%;
+    }
+}
+
+@media all and (max-aspect-ratio: 970 / 600) and (min-aspect-ratio: 520 / 600) {
+    /*SQUARE (DESKTOP) MODE*/
+    .cashDisplays {
+        width: 30%;
+        float: right;
+        margin-right: 1%;
+        margin-top: 1%;
+    }
+}
