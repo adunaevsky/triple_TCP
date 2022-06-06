@@ -1,13 +1,340 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -webkit-touch-callout: none;
+    -webkit-text-size-adjust: none;
+    -webkit-user-select: none;
+    user-select: none;
+    background-attachment: fixed;
+    font-family: "HelveticaNeue-Light", "HelveticaNeue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    height: 100vh;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    overflow: hidden;
+    background: #0000a0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.fullScreen,
+#app {
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: #0000a0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.holdButtons {
+    padding-top: 42%;
+    margin: 0 auto;
+    text-align: center;
+    cursor: pointer;
+}
+
+.changeBG {
+    position: absolute;
+    bottom: 0.2rem;
+    width: 2em;
+    height: 2em;
+    background-image: url("./refresh.svg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.settings {
+    position: absolute;
+    bottom: 0.2rem;
+    right: 0.2em;
+    width: 2em;
+    height: 2em;
+    background-image: url("./settings.svg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    font-size: 1em;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.payTable {
+    position: relative;
+}
+
+.payTableText {
+    paint-order: stroke;
+    stroke: #000000;
+    fill: #ffffff;
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    font-weight: 800;
+    font-family: Arial, Helvetica;
+}
+
+.labelCash {
+    fill: #02f53a !important;
+}
+
+@-webkit-keyframes glow {
+    0% {
+        opacity: 0.5;
+        fill: #ff004c;
+    }
+    50% {
+        opacity: 1;
+        fill: #231f20;
+    }
+    100% {
+        opacity: 0.5;
+        fill: #ff004c;
+    }
+}
+
+@-moz-keyframes glow {
+    0% {
+        opacity: 0.5;
+        fill: #ff004c;
+    }
+    50% {
+        opacity: 1;
+        fill: #231f20;
+    }
+    100% {
+        opacity: 0.5;
+        fill: #ff004c;
+    }
+}
+
+@-o-keyframes glow {
+    0% {
+        opacity: 0.5;
+        fill: #ff004c;
+    }
+    50% {
+        opacity: 1;
+        fill: #231f20;
+    }
+    100% {
+        opacity: 0.5;
+        fill: #ff004c;
+    }
+}
+
+@keyframes glow {
+    0% {
+        opacity: 0.5;
+        fill: #ff004c;
+    }
+    50% {
+        opacity: 1;
+        fill: #231f20;
+    }
+    100% {
+        opacity: 0.5;
+        fill: #ff004c;
+    }
+}
+
+.glow {
+    fill: #231f20;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.glow {
+    cursor: pointer;
+    -webkit-animation: glow 1s infinite;
+    /* Safari 4+ */
+    -moz-animation: glow 1s infinite;
+    /* Fx 5+ */
+    -o-animation: glow 1s infinite;
+    /* Opera 12+ */
+    animation: glow 1s infinite;
+    /* IE 10+, Fx 29+ */
+}
+
+.settingBtn {
+    margin: 0.5em;
+}
+
+.topInfoBox {
+    position: relative;
+    background: white;
+    padding: 1em;
+    margin: 0em;
+    z-index: 100;
+}
+
+.statsTbl tr td,
+.statsTbl tr th {
+    border: 1px solid black;
+    padding: 0.2em;
+}
+
+.statsTbl {
+    padding: 0;
+    background: whitesmoke;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.winValueLabel {
+    paint-order: stroke;
+    stroke: #000000;
+    stroke-width: 2px;
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+}
+
+.rFillEffect {
+    fill: rgb(11, 128, 0);
+}
+
+.rFillEffect:hover {
+    fill: rgb(4, 168, 12);
+}
+
+.rFillEffect:active {
+    fill: rgb(3, 255, 79);
+}
+
+.rFillDeal {
+    fill: rgb(130, 0, 13);
+}
+
+.rFillDeal:hover {
+    fill: rgb(175, 0, 00);
+}
+
+.rFillDeal:active {
+    fill: rgb(175, 0, 00);
+}
+
+.rFillTrade {
+    fill: rgb(255, 33, 13);
+}
+
+.rFillTrade:hover {
+    fill: rgb(255, 33, 00);
+}
+
+.rFillTrade:active {
+    fill: rgb(255, 33, 00);
+}
+
+.lblBase {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+}
+
+.svgLblBase {
+    stroke: #e0e0e0;
+    stroke-miterlimit: 10;
+}
+
+.topBtnBox,
+.bottomBtnBox {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    cursor: pointer;
+}
+
+.topBtn,
+.bottomBtn,
+.btnHeightPlace {
+    position: relative;
+}
+
+@media all and (min-aspect-ratio: 970 / 600) {
+    /*LANDSCAPE MODE*/
+    .topBtn,
+    .bottomBtn {
+        bottom: -37%;
+    }
+    .bottomBtn {
+        bottom: -66%;
+    }
+    .sideBtn {
+        display: block;
+    }
+    .bottomBtn {
+        display: none;
+    }
+    .topBtnBox {
+        right: 0%;
+        width: 14%;
+    }
+    .bottomBtnBox {
+        right: 0%;
+        width: 14%;
+    }
+}
+
+@media all and (max-aspect-ratio: 520 / 600) {
+    /*PORTRAIT MODE*/
+    .topBtn,
+    .bottomBtn,
+    .topBtnBox,
+    .bottomBtnBox,
+    .btnHeightPlace {
+        bottom: -82%;
+    }
+    .sideBtn {
+        display: none;
+    }
+    .bottomBtn,
+    .topBtnBox {
+        display: block;
+    }
+    .topBtnBox {
+        right: 10%;
+        width: 45%;
+    }
+    .bottomBtnBox {
+        right: 51%;
+        width: 45%;
+    }
+}
+
+@media all and (max-aspect-ratio: 970 / 600) and (min-aspect-ratio: 520 / 600) {
+    /*SQUARE (DESKTOP) MODE*/
+    .topBtn {
+        bottom: -64%;
+    }
+    .bottomBtn {
+        bottom: -82%;
+    }
+    .btnHeightPlace {
+        bottom: -65%;
+    }
+    .sideBtn {
+        display: block;
+    }
+    .bottomBtn {
+        display: none;
+    }
+    .topBtnBox {
+        right: 0%;
+        width: 12%;
+    }
+    .bottomBtnBox {
+        right: 0%;
+        width: 12%;
+    }
 }
