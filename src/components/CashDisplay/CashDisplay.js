@@ -5,6 +5,9 @@ import CashLabels from "./CashLabels";
 import Eye from "./Eye";
 import Return from "./Return";
 import { Context } from "../../Store";
+
+import { useStore } from "easy-peasy";
+
 import {
   commonTextAttr,
   commonBoxAttr,
@@ -17,7 +20,9 @@ import {
 } from "./specs";
 
 export default function CashDisplay({ glowCash }) {
-  const [s, setState] = useContext(Context);
+  const s = useStore((state) => state).getState();
+
+  /* const [s, setState] = useState({}); */
   console.log(s);
 
   const cashDisplayView = {

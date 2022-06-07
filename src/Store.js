@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
-
-const initialState =  {
+import { action } from "easy-peasy";
+export const model = {
   cash: {
     bet: {
       ante: { l: 0, m: 0, r: 0 },
@@ -20,20 +19,16 @@ const initialState =  {
       win: 123456,
       balance: 12345678,
     },
+    //actions
   },
+  changeBet: action((state, key) => {
+    console.log(key[0], key[1], state.cash.bet[key[0]][key[1]]);
+    state.cash.bet[key[0]][key[1]]++;
+    // state.cash.bet[key[0]][key[1]]++;
+  }),
   gameState: {
     newGame: true,
     gameResults: false,
     playing: false,
   },
 };
-
-export const Context = React.createContext();
-
-const Store = ({children}) =>{
-    const [state, setState] = useState(initialState);
-
-    return (<Context.Provider value={[state, setState]}>{children}</Context.Provider>)
-}
-
-export default Store;

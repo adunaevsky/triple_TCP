@@ -1,12 +1,15 @@
 import "./assets/App.css";
 import CashDisplay from "./components/CashDisplay/CashDisplay";
 import BetBtns from "./components/BetBtns/BetBtns";
+import { StoreProvider, createStore } from "easy-peasy";
 
-import Store from "./Store";
+import {model} from "./Store";
 
 import { useState, useReducer, useContext } from "react";
 
 import { Context } from "./Store"
+
+const store = createStore(model);
 
 function App() {
   //const [s, setState] = useContext(Context);
@@ -74,14 +77,14 @@ function App() {
 
   return (
     <div className="playingField">
-      <Store>
+      <StoreProvider store={store}>
         <CashDisplay glowCash={cashGlow} />
         <h1 style={{ color: "white" }}>Game state</h1>
         <button onClick={noWin}>Game Start | No win</button> <br />
         <button onClick={playing}>Playing Game</button> <br />
         <button onClick={win}>End round</button>
-        <BetBtns />
-      </Store>
+         <BetBtns /> 
+      </StoreProvider>
     </div>
   );
 }

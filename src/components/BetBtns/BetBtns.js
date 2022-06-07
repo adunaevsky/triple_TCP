@@ -1,17 +1,22 @@
-import React, { useContext } from "react";
-import { Context } from "../../Store";
+import React, { useState } from "react";
+/* import { Context } from "../../Store"; */
+import { useStoreActions } from "easy-peasy";
 
 export default function BetBtns({}) {
-  const [s, setState] = useContext(Context);
+  const changeBet = useStoreActions((actions) => actions.changeBet);
 
   const setBet = (betType, pos) => {
-    let newState = s;
+    console.log(betType, );
+
+    changeBet([betType, pos]);
+    //console.log(c.getState().cash.bet);
+    /*   let newState = s;
     newState.cash.bet[betType][pos]++;
 
     setState((previous) => {
       console.log(previous);
       return newState;
-    });
+    }); */
   };
 
   return (
