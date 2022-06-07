@@ -7,7 +7,7 @@
 @media all and (min-aspect-ratio: 970 / 600) {
     /*LANDSCAPE MODE*/
     .cashDisplays {
-        width: 30%;
+        width: 37%;
         float: right;
         margin-right: 1%;
         margin-top: 1%;
@@ -17,7 +17,7 @@
 @media all and (max-aspect-ratio: 520 / 600) {
     /*PORTRAIT MODE*/
     .cashDisplays {
-        width: 36%;
+        width: 45%;
         float: right;
         margin-right: 1%;
         margin-top: 1%;
@@ -27,9 +27,29 @@
 @media all and (max-aspect-ratio: 970 / 600) and (min-aspect-ratio: 520 / 600) {
     /*SQUARE (DESKTOP) MODE*/
     .cashDisplays {
-        width: 30%;
+        width: 37%;
         float: right;
         margin-right: 1%;
         margin-top: 1%;
     }
+}
+
+@keyframes glow {
+    0% {
+        opacity: 0.5;
+        fill: #ff004c;
+    }
+    50% {
+        opacity: 1;
+        fill: #231f20;
+    }
+    100% {
+        opacity: 0.5;
+        fill: #ff004c;
+    }
+}
+
+.glow {
+    fill: #231f20;
+    animation: glow 1s infinite;
 }

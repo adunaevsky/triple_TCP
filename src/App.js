@@ -1,62 +1,87 @@
 import "./assets/App.css";
 import CashDisplay from "./components/CashDisplay/CashDisplay";
+import BetBtns from "./components/BetBtns/BetBtns";
 
-import { useGlobalState, setGlobalState } from "./state";
+import Store from "./Store";
 
-import { useState, useReducer } from "react";
+import { useState, useReducer, useContext } from "react";
+
+import { Context } from "./Store"
 
 function App() {
+  //const [s, setState] = useContext(Context);
+
   const cashDisplayActions = {
     win: "win",
     noWin: "noWin",
     playing: "playing",
   };
 
+  const gameStates = {
+    newGame: false,
+    gameResults: false,
+    playing: false,
+  };
+
   const cashGlowReducer = (state, action) => {
-    /*     console.log(action, cashDisplayActions); */
     switch (action.type) {
       case cashDisplayActions.win:
         return {
           bet: true,
-          totalWin: true,
+          win: true,
         };
       case cashDisplayActions.noWin:
         return {
-          glowBet: true,
-          glowTotalWin: false,
+          bet: true,
+          win: false,
         };
       case cashDisplayActions.playing:
         return {
-          glowBet: false,
-          glowTotalWin: false,
+          bet: false,
+          win: false,
         };
       default:
         return state;
     }
   };
 
-  const [cashGlow, dispatch] = useReducer(cashGlowReducer, {
-    glowBet: true,
-    glowTotalWin: true,
+  const [cashGlow, dispatchCashGlow] = useReducer(cashGlowReducer, {
+    bet: true,
+    win: false,
   });
 
   const win = () => {
-    dispatch(cashDisplayActions.win);
+    /* dispatchCashGlow({ type: cashDisplayActions.win });
+    setGlobalState("gameState", { ...gameStates, newGame: true }); */
   };
   const noWin = () => {
-    dispatch(cashDisplayActions.noWin);
+  /*   dispatchCashGlow({ type: cashDisplayActions.noWin });
+
+    setGlobalState("gameState", { ...gameStates, gameResults: true }); */
   };
   const playing = () => {
-    dispatch(cashDisplayActions.playing);
+ /*    dispatchCashGlow({ type: cashDisplayActions.playing });
+    setGlobalState("gameState", { ...gameStates, playing: true }); */
+  };
+
+  const setGlobalBet = (betType, pos) => {
+    console.log(betType, pos);
+   /*  let newCash = cash;
+    newCash.bet[betType][pos]++;
+    console.log(cash.bet);
+    setGlobalState("cash", newCash); */
   };
 
   return (
     <div className="playingField">
-      <CashDisplay glowCash={cashGlow} />
-
-      <button onClick={noWin}>Game Start | No win</button>
-      <button onClick={playing}>Playing Game</button>
-      <button onClick={win}>Win</button>
+      <Store>
+        <CashDisplay glowCash={cashGlow} />
+        <h1 style={{ color: "white" }}>Game state</h1>
+        <button onClick={noWin}>Game Start | No win</button> <br />
+        <button onClick={playing}>Playing Game</button> <br />
+        <button onClick={win}>End round</button>
+        <BetBtns />
+      </Store>
     </div>
   );
 }

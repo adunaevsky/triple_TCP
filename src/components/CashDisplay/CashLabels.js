@@ -1,53 +1,18 @@
 import React from "react";
+import {commonDisplayLabelsAttr} from './specs'
 
-export default function CashLabels() {
-  const xMargin = "63";
+export default function CashLabels({ specs }) {
+
+
   return (
     <g>
-      <text
-        textAnchor="end"
-        fontWeight="bold"
-        fontSize="9"
-        x={xMargin}
-        y="8.5"
-        fill="#FFFFFF"
-        opacity="0.8"
-      >
-        BALANCE
-      </text>
-      <text
-        textAnchor="end"
-        fontWeight="bold"
-        fontSize="9"
-        x={xMargin}
-        y="20.5"
-        fill="#FFFFFF"
-        opacity="0.8"
-      >
-        BET: L-M-R-5C
-      </text>
-      <text
-        textAnchor="end"
-        fontWeight="bold"
-        fontSize="9"
-        x={xMargin}
-        y="32.5"
-        fill="#FFFFFF"
-        opacity="0.8"
-      >
-        WIN: L-M-R-5C
-      </text>
-      <text
-        textAnchor="end"
-        fontWeight="bold"
-        fontSize="9"
-        x={xMargin}
-        y="44.5"
-        fill="#FFFFFF"
-        opacity="0.8"
-      >
-        TOTAL WIN
-      </text>
+      {specs.map((s) => {
+        return ( s.skipLine ? '' :
+          <text key={s.id + 'cdText'} y={s.yText} {...commonDisplayLabelsAttr}>
+            {s.label}
+          </text>
+        );
+      })}
     </g>
   );
 }
