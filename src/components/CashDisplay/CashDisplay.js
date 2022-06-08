@@ -1,12 +1,10 @@
-import React, { useState, useReducer, useContext } from "react";
+import React, {useReducer } from "react";
 import "../../assets/CashDisplay.css";
-import CashBoxes from "./CashBoxes";
 import CashLabels from "./CashLabels";
 import Eye from "./Eye";
 import Return from "./Return";
-import { Context } from "../../Store";
-
-import { useStore } from "easy-peasy";
+import TextBox from "./TextBox";
+import CashBoxes from "./CashBoxes"
 
 import {
   commonTextAttr,
@@ -19,12 +17,7 @@ import {
   col3,
 } from "./specs";
 
-export default function CashDisplay({ glowCash }) {
-  const s = useStore((state) => state).getState();
-
-  /* const [s, setState] = useState({}); */
-  console.log(s);
-
+export default function CashDisplay({ glowCash, bet, total, win }) {
   const cashDisplayView = {
     wins: "wins",
     bets: "bets",
@@ -106,41 +99,41 @@ export default function CashDisplay({ glowCash }) {
 
               <g>
                 <text {...col1} y={betSpecs[1].yText}>
-                  {$format(s.cash.bet.ante.l)}
+                  {$format(bet.ante.l)}
                 </text>
                 <text {...commonTextAttr} y={betSpecs[1].yText}>
-                  {$format(s.cash.bet.ante.m)}
+                  {$format(bet.ante.m)}
                 </text>
                 <text {...col3} y={betSpecs[1].yText}>
-                  {$format(s.cash.bet.ante.r)}
+                  {$format(bet.ante.r)}
                 </text>
               </g>
 
               <g>
                 <text {...col1} y={betSpecs[2].yText}>
-                  {$format(s.cash.bet.play.l)}
+                  {$format(bet.play.l)}
                 </text>
                 <text {...commonTextAttr} y={betSpecs[2].yText}>
-                  {$format(s.cash.bet.play.m)}
+                  {$format(bet.play.m)}
                 </text>
                 <text {...col3} y={betSpecs[2].yText}>
-                  {$format(s.cash.bet.play.r)}
+                  {$format(bet.play.r)}
                 </text>
               </g>
-           
+
               <g>
                 <text {...col1} y={betSpecs[3].yText}>
-                  {$format(s.cash.bet.bonus3.l)}
+                  {$format(bet.bonus3.l)}
                 </text>
                 <text {...commonTextAttr} y={betSpecs[3].yText}>
-                  {$format(s.cash.bet.bonus3.m)}
+                  {$format(bet.bonus3.m)}
                 </text>
                 <text {...col3} y={betSpecs[3].yText}>
-                  {$format(s.cash.bet.bonus3.r)}
+                  {$format(bet.bonus3.r)}
                 </text>
               </g>
               <text {...commonTextAttr} y={betSpecs[4].yText}>
-                {$format(s.cash.bet.bonus5.m)}
+                {$format(bet.bonus5.m)}
               </text>
             </g>
           </g>
@@ -148,9 +141,6 @@ export default function CashDisplay({ glowCash }) {
 
         {cashView.wins && (
           <g>
-            <CashBoxes commonBoxAttr={commonBoxAttr} specs={betSpecs} />
-            <CashLabels specs={betSpecs} />
-
             <g>
               <text {...viewTitle} x="18">
                 WINS
@@ -167,43 +157,43 @@ export default function CashDisplay({ glowCash }) {
 
               <g>
                 <text {...col1} y={betSpecs[1].yText}>
-                  {$format(s.cash.win.ante.l)}
+                  {$format(win.ante.l)}
                 </text>
                 <text {...commonTextAttr} y={betSpecs[1].yText}>
-                  {$format(s.cash.win.ante.m)}
+                  {$format(win.ante.m)}
                 </text>
                 <text {...col3} y={betSpecs[1].yText}>
-                  {$format(s.cash.win.ante.r)}
+                  {$format(win.ante.r)}
                 </text>
               </g>
 
               <g>
                 <text {...col1} y={betSpecs[2].yText}>
-                  {$format(s.cash.win.play.l)}
+                  {$format(win.play.l)}
                 </text>
                 <text {...commonTextAttr} y={betSpecs[2].yText}>
-                  {$format(s.cash.win.play.m)}
+                  {$format(win.play.m)}
                 </text>
                 <text {...col3} y={betSpecs[2].yText}>
-                  {$format(s.cash.win.play.r)}
+                  {$format(win.play.r)}
                 </text>
               </g>
               <text {...commonTextAttr} y={betSpecs[3].yText}>
-                {$format(s.cash.win.anteBonus)}
+                {$format(win.anteBonus)}
               </text>
               <g>
                 <text {...col1} y={betSpecs[4].yText}>
-                  {$format(s.cash.win.bonus3.l)}
+                  {$format(win.bonus3.l)}
                 </text>
                 <text {...commonTextAttr} y={betSpecs[4].yText}>
-                  {$format(s.cash.win.bonus3.m)}
+                  {$format(win.bonus3.m)}
                 </text>
                 <text {...col3} y={betSpecs[4].yText}>
-                  {$format(s.cash.win.bonus3.r)}
+                  {$format(win.bonus3.r)}
                 </text>
               </g>
               <text {...commonTextAttr} y={betSpecs[5].yText}>
-                {$format(s.cash.win.bonus5)}
+                {$format(win.bonus5)}
               </text>
             </g>
           </g>
@@ -229,15 +219,15 @@ export default function CashDisplay({ glowCash }) {
 
             <g>
               <text {...commonTextAttr} y={mainSpecs[0].yText}>
-                {$format(s.cash.total.balance)}
+                {$format(total.balance)}
               </text>
 
               <text {...commonTextAttr} y={mainSpecs[1].yText}>
-                {$format(s.cash.total.bet)}
+                {$format(total.bet)}
               </text>
 
               <text {...commonTextAttr} y={mainSpecs[2].yText}>
-                {$format(s.cash.total.win)}
+                {$format(total.win)}
               </text>
             </g>
           </g>

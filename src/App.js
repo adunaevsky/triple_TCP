@@ -1,18 +1,58 @@
 import "./assets/App.css";
 import CashDisplay from "./components/CashDisplay/CashDisplay";
 import BetBtns from "./components/BetBtns/BetBtns";
-import { StoreProvider, createStore } from "easy-peasy";
 
-import {model} from "./Store";
+import { useState, useReducer, useContext, useEffect } from "react";
 
-import { useState, useReducer, useContext } from "react";
+import { Context } from "./Store";
 
-import { Context } from "./Store"
+const App = () => {
+  const [bet, setBet] = useState({
+    bonus3: { l: 0, m: 0, r: 0 },
+    play: { l: 0, m: 0, r: 0 },
+    ante: { l: 0, m: 0, r: 0 },
+    bonus5: { m: 0 },
+  });
+  const [win, setWin] = useState({
+    ante: { l: 1, m: 2, r: 3 },
+    play: { l: 1, m: 2, r: 3 },
+    bonus3: { l: 1, m: 2, r: 3 },
+    bonus5: { m: 20 },
+    anteBonus: { m: 20 },
+  });
+  const [total, setTotal] = useState({
+    bet: 0,
+    win: 123456,
+    balance: 12345678,
+  });
 
-const store = createStore(model);
+  const nextVal = {
+    0: 1,
+    1: 2,
+    2: 3,
+    3: 5,
+    5: 10,
+    10: 0,
+  };
 
-function App() {
-  //const [s, setState] = useContext(Context);
+  const updateBet = (betType, pos) => {
+    setBet({
+      ...bet,
+      [betType]: { ...bet[betType], [pos]: nextVal[bet[betType][pos]] },
+    });
+  };
+
+  useEffect(() => {
+    setTotal(() => {
+      let totalBet = 0;
+      for (var key in bet) {
+         for (var k in bet[key]) {
+          totalBet += bet[key][k];
+        }
+      }
+      return { bet: totalBet, win: total.win, balance: total.balance };
+    });
+  }, [bet]);
 
   const cashDisplayActions = {
     win: "win",
@@ -53,40 +93,43 @@ function App() {
     win: false,
   });
 
-  const win = () => {
+  const winRound = () => {
     /* dispatchCashGlow({ type: cashDisplayActions.win });
     setGlobalState("gameState", { ...gameStates, newGame: true }); */
   };
   const noWin = () => {
-  /*   dispatchCashGlow({ type: cashDisplayActions.noWin });
+    /*   dispatchCashGlow({ type: cashDisplayActions.noWin });
 
     setGlobalState("gameState", { ...gameStates, gameResults: true }); */
   };
   const playing = () => {
- /*    dispatchCashGlow({ type: cashDisplayActions.playing });
+    /*    dispatchCashGlow({ type: cashDisplayActions.playing });
     setGlobalState("gameState", { ...gameStates, playing: true }); */
   };
 
   const setGlobalBet = (betType, pos) => {
     console.log(betType, pos);
-   /*  let newCash = cash;
+    /*  let newCash = cash;
     newCash.bet[betType][pos]++;
     console.log(cash.bet);
     setGlobalState("cash", newCash); */
   };
 
+  /* store.subscribe(() => {
+  console.log('A state changed occurred');
+}); */
+
   return (
     <div className="playingField">
-      <StoreProvider store={store}>
-        <CashDisplay glowCash={cashGlow} />
-        <h1 style={{ color: "white" }}>Game state</h1>
+      <CashDisplay glowCash={cashGlow} bet={bet} total={total} win={win} />
+      {/*   <h1 style={{ color: "white" }}>Game state</h1>
+        <h2 style={{ color: "white" }}>test: </h2>
         <button onClick={noWin}>Game Start | No win</button> <br />
         <button onClick={playing}>Playing Game</button> <br />
-        <button onClick={win}>End round</button>
-         <BetBtns /> 
-      </StoreProvider>
+        <button onClick={winRound}>End round</button> */}
+      <BetBtns updateBet={updateBet} />
     </div>
   );
-}
+};
 
 export default App;

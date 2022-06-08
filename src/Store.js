@@ -1,6 +1,22 @@
 import { action } from "easy-peasy";
 export const model = {
+  items: [],
+  addItem: action((state, text) => {
+    console.log("to do added!", text);
+    state.items.push(text);
+  }),
+
+  numTest: 1,
+  todos: {
+    items: [],
+    addTodo: action((state, text) => {
+      console.log("to do added!", text);
+      state.items.push(text);
+    }),
+  },
+
   cash: {
+    test: 1,
     bet: {
       ante: { l: 0, m: 0, r: 0 },
       play: { l: 0, m: 0, r: 0 },
@@ -22,8 +38,19 @@ export const model = {
     //actions
   },
   changeBet: action((state, key) => {
-    console.log(key[0], key[1], state.cash.bet[key[0]][key[1]]);
+    //console.log(key[0], key[1], state.cash.bet[key[0]][key[1]]);
     state.cash.bet[key[0]][key[1]]++;
+
+    // state.cash.bet[key[0]][key[1]]++;
+  }),
+  testEasy: action((state, key) => {
+    state.numTest++;
+    console.log("test action run", state.numTest);
+    // state.cash.bet[key[0]][key[1]]++;
+  }),
+  testEasy: action((state, key) => {
+    state.numTest++;
+    console.log("test action run", state.numTest);
     // state.cash.bet[key[0]][key[1]]++;
   }),
   gameState: {
