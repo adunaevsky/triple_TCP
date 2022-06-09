@@ -46,7 +46,7 @@ const App = () => {
     setTotal(() => {
       let totalBet = 0;
       for (var key in bet) {
-         for (var k in bet[key]) {
+        for (var k in bet[key]) {
           totalBet += bet[key][k];
         }
       }
@@ -94,39 +94,23 @@ const App = () => {
   });
 
   const winRound = () => {
-    /* dispatchCashGlow({ type: cashDisplayActions.win });
-    setGlobalState("gameState", { ...gameStates, newGame: true }); */
+    dispatchCashGlow({ type: cashDisplayActions.win });
   };
   const noWin = () => {
-    /*   dispatchCashGlow({ type: cashDisplayActions.noWin });
-
-    setGlobalState("gameState", { ...gameStates, gameResults: true }); */
+    dispatchCashGlow({ type: cashDisplayActions.noWin });
   };
   const playing = () => {
-    /*    dispatchCashGlow({ type: cashDisplayActions.playing });
-    setGlobalState("gameState", { ...gameStates, playing: true }); */
+    dispatchCashGlow({ type: cashDisplayActions.playing });
   };
-
-  const setGlobalBet = (betType, pos) => {
-    console.log(betType, pos);
-    /*  let newCash = cash;
-    newCash.bet[betType][pos]++;
-    console.log(cash.bet);
-    setGlobalState("cash", newCash); */
-  };
-
-  /* store.subscribe(() => {
-  console.log('A state changed occurred');
-}); */
 
   return (
     <div className="playingField">
       <CashDisplay glowCash={cashGlow} bet={bet} total={total} win={win} />
-      {/*   <h1 style={{ color: "white" }}>Game state</h1>
-        <h2 style={{ color: "white" }}>test: </h2>
-        <button onClick={noWin}>Game Start | No win</button> <br />
-        <button onClick={playing}>Playing Game</button> <br />
-        <button onClick={winRound}>End round</button> */}
+     {/*  <h1 style={{ color: "white" }}>Game state</h1>
+      <h2 style={{ color: "white" }}>test: </h2>
+      <button onClick={noWin}>Game Start | No win</button> <br />
+      <button onClick={playing}>Playing Game</button> <br />
+      <button onClick={winRound}>End round</button> */}
       <BetBtns updateBet={updateBet} />
     </div>
   );

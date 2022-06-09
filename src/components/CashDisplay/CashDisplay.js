@@ -3,7 +3,6 @@ import "../../assets/CashDisplay.css";
 import CashLabels from "./CashLabels";
 import Eye from "./Eye";
 import Return from "./Return";
-import TextBox from "./TextBox";
 import CashBoxes from "./CashBoxes"
 
 import {

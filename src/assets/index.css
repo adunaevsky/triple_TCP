@@ -11,7 +11,8 @@ body {
     padding: 0px;
     width: 100%;
     overflow: hidden;
-    background: #0000a0;
+    /*  background: #0000a0; */
+    background: linear-gradient(#073239, #1280a3);
 }
 
 .fullScreen,
@@ -20,7 +21,8 @@ body {
     height: 100%;
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    background-color: #0000a0;
+    /* background-color: #0000a0; */
+    background: linear-gradient(#073239, #1280a3);
 }
 
 .fade-enter-active,
