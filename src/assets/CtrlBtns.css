@@ -1,0 +1,71 @@
+.btnBase {
+    /*     background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center; */
+    position: absolute;
+    cursor: pointer;
+}
+
+.ctrlBtnRect {
+    stroke: rgb(255, 255, 255);
+    stroke-width: 6;
+    opacity: 1;
+}
+
+.lBtnCtrl {
+    left: 0%;
+    width: 21%;
+}
+
+.rBtnCtrl {
+    right: 0%;
+    width: 21%;
+}
+
+.lFillEffect {
+    fill: rgb(16, 47, 7)
+}
+
+.lFillEffect:hover {
+    fill: rgb(2, 91, 14)
+}
+
+.lFillEffect:active {
+    fill: rgb(48, 135, 21)
+}
+
+.rFillEffect {
+    fill: rgb(127, 0, 0)
+}
+
+.rFillEffect:hover {
+    fill: rgb(50, 0, 0)
+}
+
+.rFillEffect:active {
+    fill: rgb(204, 0, 0)
+}
+
+@media all and (min-aspect-ratio: 970 / 600) {
+    /*LANDSCAPE MODE*/
+    .ctrlHeight {
+        bottom: -35%;
+        position: relative;
+    }
+}
+
+@media all and (max-aspect-ratio: 520 / 600) {
+    /*PORTRAIT MODE*/
+    .ctrlHeight {
+        bottom: -47%;
+        position: relative;
+    }
+}
+
+@media all and (max-aspect-ratio: 970 / 600) and (min-aspect-ratio: 520 / 600) {
+    /*SQUARE (DESKTOP) MODE*/
+    .ctrlHeight {
+        bottom: -30%;
+        position: relative;
+    }
+}

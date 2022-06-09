@@ -2,15 +2,6 @@
     position: relative;
 }
 
-
-/* .ovalLabel5 {
-    position: absolute;
-    left: 50%;
-    margin-left: -10%;
-    width: 20%;
-    cursor: pointer;
-} */
-
 .chipButtonsAreaTop {
     position: absolute;
     width: 100%;
@@ -48,6 +39,10 @@
     .chipButtonsArea {
         margin: 0 auto;
         top: 28%;
+    }
+    .chipButtonsAreaTop {
+        margin-left: 20%;
+        width: 60% !important;
     }
 }
 

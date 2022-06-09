@@ -1,6 +1,8 @@
 import "./assets/App.css";
 import CashDisplay from "./components/CashDisplay/CashDisplay";
 import BetBtns from "./components/BetBtns/BetBtns";
+import LCtrl from "./components/CtrlBtns/LCtrl"
+import RCtrl from "./components/CtrlBtns/RCtrl"
 
 import { useState, useReducer, useContext, useEffect } from "react";
 
@@ -22,8 +24,8 @@ const App = () => {
   });
   const [total, setTotal] = useState({
     bet: 0,
-    win: 123456,
-    balance: 12345678,
+    win: 0,
+    balance: 10000,
   });
 
   const nextVal = {
@@ -112,6 +114,8 @@ const App = () => {
       <button onClick={playing}>Playing Game</button> <br />
       <button onClick={winRound}>End round</button> */}
       <BetBtns updateBet={updateBet} />
+      <LCtrl topLbl={"CLEAR"} btmLbl={""} />
+      <RCtrl topLbl={"DEAL"} btmLbl={""}  />
     </div>
   );
 };
