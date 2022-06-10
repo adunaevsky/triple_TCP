@@ -17,9 +17,6 @@ export const betBtnValue = {
   ...genBetValue,
   fontSize: "20"
 };
-export const betBtnValueAnte = {
-  ...genBetValue
-};
 
 export const elipseBetBtn = {
   cx: "25",

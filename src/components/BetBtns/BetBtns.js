@@ -9,13 +9,12 @@ import {
 } from "./specs";
 
 export default function BetBtns({ updateBet, bet }) {
-
   const anteFontSize = (v) => (v > 99 ? "12" : "14");
   const valueOpacity = (v) => (v > 0 ? 1 : 0);
   const textOpacity = (v) => (v > 0 ? 0.15 : 1);
   const setFlash = (v) =>
     v > 0 ? "svgBetBtnOutline" : "svgBetBtnOutline betBtnFlash";
-    const anteFontY =  (v) => (v > 99 ? 14 : 14.5);
+  const anteFontY = (v) => (v > 99 ? 14 : 14.5);
 
   return (
     <div className="chipButtonsArea">
