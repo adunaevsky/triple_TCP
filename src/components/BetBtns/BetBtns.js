@@ -1,8 +1,11 @@
 import "../../assets/betBtns.css";
 import React from "react";
-import { betBtnText, elipseBetBtn } from "./specs";
+import { betBtnText, elipseBetBtn, betBtnValue } from "./specs";
 
-export default function BetBtns({ updateBet }) {
+export default function BetBtns({ updateBet, bet }) {
+
+  const low = '0', hi = '1';
+
   return (
     <div className="chipButtonsArea">
       <div className="chipButtonsAreaTop">
@@ -14,13 +17,16 @@ export default function BetBtns({ updateBet }) {
           >
             <ellipse
               {...elipseBetBtn}
-              className="svgBetBtnOutline betBtnFlash"
+              className={'svgBetBtnOutline' + (bet.bonus5.m > 0 ? '' : ' betBtnFlash')}
             />
-            <text {...betBtnText} x="25" y="12">
+            <text {...betBtnText} opacity={bet.bonus5.m > 0 ? low : hi} y="12">
               5 EXTRA
             </text>
-            <text {...betBtnText} x="25" y="20">
+            <text {...betBtnText} opacity={bet.bonus5.m > 0 ? low : hi} y="20">
               BONUS
+            </text>
+            <text {...betBtnValue} opacity={bet.bonus5.m > 0 ? hi : low} y="19">
+              ${bet.bonus5.m}
             </text>
           </g>
 
@@ -31,13 +37,16 @@ export default function BetBtns({ updateBet }) {
           >
             <ellipse
               {...elipseBetBtn}
-              className="svgBetBtnOutline betBtnFlash"
+              className={'svgBetBtnOutline' + (bet.bonus3.m > 0 ? '' : ' betBtnFlash')}
             />
-            <text {...betBtnText} x="25" y="12">
+            <text {...betBtnText} opacity={bet.bonus3.m > 0 ? low : hi} y="12">
               3 EXTRA
             </text>
-            <text {...betBtnText} x="25" y="20">
+            <text {...betBtnText} opacity={bet.bonus3.m > 0 ? low : hi} y="20">
               BONUS
+            </text>
+            <text {...betBtnValue} opacity={bet.bonus3.m > 0 ? hi : low} y="19">
+              ${bet.bonus3.m}
             </text>
           </g>
 
@@ -48,7 +57,7 @@ export default function BetBtns({ updateBet }) {
           >
             <ellipse
               {...elipseBetBtn}
-              className="svgBetBtnOutline betBtnFlash"
+              className={'svgBetBtnOutline' + (bet.bonus3.l > 0 ? '' : ' betBtnFlash')}
             />
             <text {...betBtnText} x="25" y="12">
               3 EXTRA
@@ -65,7 +74,8 @@ export default function BetBtns({ updateBet }) {
           >
             <ellipse
               {...elipseBetBtn}
-              className="svgBetBtnOutline betBtnFlash"
+              className={'svgBetBtnOutline' + (bet.bonus3.r > 0 ? '' : ' betBtnFlash')}
+
             />
             <text {...betBtnText} x="25" y="12">
               3 EXTRA
@@ -75,26 +85,27 @@ export default function BetBtns({ updateBet }) {
             </text>
           </g>
 
-          <g className="pointer" transform="translate(10,120) scale(3)"  onClick={() => updateBet("ante", "l")}>
+          <g className="pointer" transform="translate(10,120) scale(3)" onClick={() => updateBet("ante", "l")}>
             <polygon
               points="25,0 0,10 25,20, 50,10"
-              className="svgBetBtnOutline betBtnFlash"
+              className={'svgBetBtnOutline' + (bet.ante.l > 0 ? '' : ' betBtnFlash')}
+
               style={{ fill: "#af2121" }}
             />
             <text {...betBtnText} x="25" y="12.5" >ANTE</text>
           </g>
-          <g className="pointer" transform="translate(175,120) scale(3)"  onClick={() => updateBet("ante", "m")}>
+          <g className="pointer" transform="translate(175,120) scale(3)" onClick={() => updateBet("ante", "m")}>
             <polygon
               points="25,0 0,10 25,20, 50,10"
-              className="svgBetBtnOutline betBtnFlash"
+              className={'svgBetBtnOutline' + (bet.ante.m > 0 ? '' : ' betBtnFlash')}
               style={{ fill: "#af2121" }}
             />
             <text {...betBtnText} x="25" y="12.5" >ANTE</text>
           </g>
-          <g className="pointer" transform="translate(340,120) scale(3)"  onClick={() => updateBet("ante", "r")}>
+          <g className="pointer" transform="translate(340,120) scale(3)" onClick={() => updateBet("ante", "r")}>
             <polygon
               points="25,0 0,10 25,20, 50,10"
-              className="svgBetBtnOutline betBtnFlash"
+              className={'svgBetBtnOutline' + (bet.ante.r > 0 ? '' : ' betBtnFlash')}
               style={{ fill: "#af2121" }}
             />
             <text {...betBtnText} x="25" y="12.5" >ANTE</text>

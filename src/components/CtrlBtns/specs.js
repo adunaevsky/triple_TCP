@@ -17,3 +17,6 @@ export const lowerText = {
   ...textAttrs,
   y: "130",
 };
+export const ctrlRect = {
+  y: "10", width: "800", height: "170", rx: "85", ry: "85"
+}

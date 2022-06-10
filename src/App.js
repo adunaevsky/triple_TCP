@@ -27,6 +27,7 @@ const App = () => {
     win: 0,
     balance: 10000,
   });
+  const [anteBetMade, setAnteBetMade] = useState({ l: false, m: false, r: false, lmr: false });
 
   const nextVal = {
     0: 1,
@@ -38,11 +39,25 @@ const App = () => {
   };
 
   const updateBet = (betType, pos) => {
+    const newBetValue = nextVal[bet[betType][pos]];
     setBet({
       ...bet,
-      [betType]: { ...bet[betType], [pos]: nextVal[bet[betType][pos]] },
+      [betType]: { ...bet[betType], [pos]: newBetValue },
     });
+    if (betType === 'ante') {
+      setAnteBetMade({ ...anteBetMade, [pos]: newBetValue > 0 ? true : false, lmr: setLMRAnte(pos, newBetValue) });
+
+    }
   };
+
+  const setLMRAnte = (pos, newBetValue) => {
+    if (newBetValue === 0) { return false }
+    let check = { ...anteBetMade, [pos]: true }
+    if (check.l && check.m && check.r){
+      return true
+    }
+      return false
+  }
 
   useEffect(() => {
     setTotal(() => {
@@ -108,14 +123,14 @@ const App = () => {
   return (
     <div className="playingField">
       <CashDisplay glowCash={cashGlow} bet={bet} total={total} win={win} />
-     {/*  <h1 style={{ color: "white" }}>Game state</h1>
+      {/*  <h1 style={{ color: "white" }}>Game state</h1>
       <h2 style={{ color: "white" }}>test: </h2>
       <button onClick={noWin}>Game Start | No win</button> <br />
       <button onClick={playing}>Playing Game</button> <br />
       <button onClick={winRound}>End round</button> */}
-      <BetBtns updateBet={updateBet} />
-      <LCtrl topLbl={"CLEAR"} btmLbl={""} />
-      <RCtrl topLbl={"DEAL"} btmLbl={""}  />
+      <BetBtns updateBet={updateBet} bet={bet} />
+      <LCtrl topLbl={"CLEAR"} opacity={'0.2'} btmLbl={""} />
+      <RCtrl topLbl={"DEAL"} opacity={anteBetMade.lmr ? '1' : '0.2'} btmLbl={""} />
     </div>
   );
 };
