@@ -37,7 +37,6 @@
 @media all and (min-aspect-ratio: 970 / 600) {
     /*LANDSCAPE MODE*/
     .chipButtonsArea {
-        margin: 0 auto;
         top: 28%;
     }
     .chipButtonsAreaTop {
@@ -49,7 +48,6 @@
 @media all and (max-aspect-ratio: 520 / 600) {
     /*PORTRAIT MODE*/
     .chipButtonsArea {
-        margin: 0 auto;
         top: 50%;
     }
 }
