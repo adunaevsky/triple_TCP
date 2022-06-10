@@ -5,12 +5,20 @@ export const betBtnText = {
   fill: "#ffffff",
   x: '25'
 };
-export const betBtnValue = {
+
+export const genBetValue = {
   textAnchor: "middle",
   fontWeight: "bold",
   fontSize: "20",
   fill: "#FFFF00",
   x:'25'
+};
+export const betBtnValue = {
+  ...genBetValue,
+  fontSize: "20"
+};
+export const betBtnValueAnte = {
+  ...genBetValue
 };
 
 export const elipseBetBtn = {
