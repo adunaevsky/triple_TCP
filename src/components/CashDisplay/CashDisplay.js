@@ -1,9 +1,11 @@
-import React, {useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import "../../assets/CashDisplay.css";
 import CashLabels from "./CashLabels";
 import Eye from "./Eye";
 import Return from "./Return";
-import CashBoxes from "./CashBoxes"
+import CashBoxes from "./CashBoxes";
+import { useCountUp } from "react-countup";
+import Counter from "./Counter";
 
 import {
   commonTextAttr,
@@ -16,14 +18,25 @@ import {
   col3,
 } from "./specs";
 
-export default function CashDisplay({ glowCash, bet, total, win }) {
+export default function CashDisplay({ stage, bet, total, win, dealCards }) {
   const cashDisplayView = {
     wins: "wins",
     bets: "bets",
     total: "total",
   };
 
+  const [startBetValue, setStartBetValue] = useState(total.bet);
+  const [startBalanceValue, setStartBalanceValue] = useState(total.bet);
+  const [startWinValue, setStartWinValue] = useState(total.win);
+
+  const readyToDeal = () => {
+    dealCards();
+  };
+
   const cashDisplayStateReducer = (state, action) => {
+    setStartBetValue(total.bet);
+    setStartBalanceValue(total.balance);
+    setStartWinValue(total.win);
     let defaultView = {
       wins: false,
       bets: false,
@@ -206,36 +219,46 @@ export default function CashDisplay({ glowCash, bet, total, win }) {
             <rect
               id="glowHandWins"
               {...commonBoxAttr}
-              className={glowCash.bet ? "cashBox glow" : "cashBox"}
+              className={stage.bet ? "cashBox glow" : "cashBox"}
               y={mainSpecs[1].yBox}
             />
             <rect
               id="glowTotalWin"
               y={mainSpecs[2].yBox}
               {...commonBoxAttr}
-              className={glowCash.win ? "cashBox glow" : "cashBox"}
+              className={stage.win ? "cashBox glow" : "cashBox"}
             />
 
             <g>
-              <text {...commonTextAttr} y={mainSpecs[0].yText}>
-                {$format(total.balance)}
-              </text>
-
-              <text {...commonTextAttr} y={mainSpecs[1].yText}>
-                {$format(total.bet)}
-              </text>
-
-              <text {...commonTextAttr} y={mainSpecs[2].yText}>
-                {$format(total.win)}
-              </text>
+              <Counter
+                y={mainSpecs[0].yText}
+                value={total.balance}
+                attr={commonTextAttr}
+                start={startBalanceValue}
+                doneAction={readyToDeal}
+                duration={0.3}
+              />
+              <Counter
+                y={mainSpecs[1].yText}
+                value={total.bet}
+                attr={commonTextAttr}
+                start={startBetValue}
+                duration={0.5}
+              />
+              <Counter
+                y={mainSpecs[2].yText}
+                value={total.win}
+                attr={commonTextAttr}
+                start={startWinValue}
+              />
             </g>
           </g>
         )}
 
-        {glowCash.bet & cashView.total && (
+        {cashView.total && (
           <Eye transform={mainSpecs[1].eye} view={enableBetsView} />
         )}
-        {glowCash.win & cashView.total && (
+        {stage.win & cashView.total && (
           <Eye transform={mainSpecs[2].eye} view={enableWinsView} />
         )}
         {(cashView.bets || cashView.wins) && <Return view={enableTotalView} />}

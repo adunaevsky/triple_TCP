@@ -50,6 +50,13 @@ const App = () => {
     500: 0,
   };
 
+  const stageOptions = {
+    win: false,
+    bet: true,
+    betDone: false,
+    dealCards: false,
+  };
+
   const updateBet = (betType, pos) => {
     const newBetValue = nextVal[bet[betType][pos]];
     setBet({
@@ -65,7 +72,16 @@ const App = () => {
     }
   };
 
-  const deal = () => {console.log('deal sequence');};
+  const deal = () => {
+    if (anteBetMade.l && anteBetMade.m && anteBetMade.r) {
+      setTotal(() => {
+        return { ...total, balance: total.balance - total.bet };
+      });
+      dispatchStage({ type: stages.betDone });
+    } else {
+      console.log("cannot bet");
+    }
+  };
 
   const setLMRAnte = (pos, newBetValue) => {
     if (newBetValue === 0) {
@@ -92,80 +108,103 @@ const App = () => {
 
   const clearBet = () => {
     if (total.bet > 0) {
-      setBet(initBet)
+      setBet(initBet);
     }
   };
 
-  const cashDisplayActions = {
+  const stages = {
+    betDone: "betDone",
     win: "win",
     noWin: "noWin",
     playing: "playing",
+    deal: "deal",
   };
 
-  const gameStates = {
-    newGame: false,
-    gameResults: false,
-    playing: false,
-  };
+  const stageReducer = (state, action) => {
+    let newState = {};
+    for (var key in state) {
+      newState[key] = false;
+    }
 
-  const cashGlowReducer = (state, action) => {
-    switch (action.type) {
-      case cashDisplayActions.win:
+    const result = {
+      ...newState,
+      [stages[action.type]]: true,
+    };
+
+    console.log(action, result);
+    return result;
+
+    /*     switch (action.type) {
+      case stages.win:
         return {
           bet: true,
           win: true,
         };
-      case cashDisplayActions.noWin:
+      case stages.noWin:
         return {
           bet: true,
           win: false,
         };
-      case cashDisplayActions.playing:
+      case stages.playing:
         return {
           bet: false,
           win: false,
         };
       default:
         return state;
-    }
+    } */
   };
 
-  const [cashGlow, dispatchCashGlow] = useReducer(cashGlowReducer, {
-    bet: true,
-    win: false,
-  });
+  const [stage, dispatchStage] = useReducer(stageReducer, stageOptions);
 
-  const winRound = () => {
-    dispatchCashGlow({ type: cashDisplayActions.win });
+  /*   const winRound = () => {
+    dispatchStage({ type: stages.win });
   };
   const noWin = () => {
-    dispatchCashGlow({ type: cashDisplayActions.noWin });
+    dispatchStage({ type: stages.noWin });
   };
   const playing = () => {
-    dispatchCashGlow({ type: cashDisplayActions.playing });
+    dispatchStage({ type: stages.playing });
+  }; */
+
+  const dealCards = () => {
+    if (stage.betDone) {
+      console.log("cards dealing now....");
+      dispatchStage({ type: stageOptions.dealCards });
+    }
   };
 
   return (
     <div className="playingField">
-      <CashDisplay glowCash={cashGlow} bet={bet} total={total} win={win} />
+      <CashDisplay
+        stage={stage}
+        bet={bet}
+        total={total}
+        win={win}
+        dealCards={dealCards}
+      />
       {/*  <h1 style={{ color: "white" }}>Game state</h1>
       <h2 style={{ color: "white" }}>test: </h2>
       <button onClick={noWin}>Game Start | No win</button> <br />
       <button onClick={playing}>Playing Game</button> <br />
       <button onClick={winRound}>End round</button> */}
-      <BetBtns updateBet={updateBet} bet={bet} />
-      <LCtrl
-        topLbl={"CLEAR"}
-        opacity={total.bet > 0 ? 1 : 0.2}
-        btmLbl={""}
-        action={clearBet}
-      />
-      <RCtrl
-        topLbl={"DEAL"}
-        opacity={anteBetMade.lmr ? "1" : "0.2"}
-        btmLbl={""}
-        action={deal}
-      />
+      {stage.bet && <BetBtns updateBet={updateBet} bet={bet} />}
+      {stage.bet && (
+        <LCtrl
+          topLbl={"CLEAR"}
+          opacity={total.bet > 0 ? 1 : 0.2}
+          btmLbl={""}
+          action={clearBet}
+        />
+      )}
+      {stage.bet && (
+        <RCtrl
+          topLbl={"DEAL"}
+          opacity={anteBetMade.lmr ? "1" : "0.2"}
+          btmLbl={""}
+          action={deal}
+        />
+      )}
     </div>
   );
 };

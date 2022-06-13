@@ -1,4 +1,4 @@
-import { action } from "easy-peasy";
+/* import { action } from "easy-peasy";
 export const model = {
   items: [],
   addItem: action((state, text) => {
@@ -59,3 +59,4 @@ export const model = {
     playing: false,
   },
 };
+ */
