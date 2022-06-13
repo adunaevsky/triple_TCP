@@ -13,11 +13,11 @@ export default function Counter({ start, value, y, attr, doneAction, duration })
     prefix: "$",
     separator: ",",
 
-    onEnd: ({}) => {
+/*     onEnd: ({}) => {
       if (doneAction) {
         doneAction();
       }
-    },
+    }, */
   });
 
   useEffect(() => {

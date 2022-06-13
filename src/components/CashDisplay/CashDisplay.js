@@ -7,6 +7,8 @@ import CashBoxes from "./CashBoxes";
 import { useCountUp } from "react-countup";
 import Counter from "./Counter";
 
+import {durations} from '../../appSpecs'
+
 import {
   commonTextAttr,
   commonBoxAttr,
@@ -25,13 +27,12 @@ export default function CashDisplay({ stage, bet, total, win, dealCards }) {
     total: "total",
   };
 
+
+
   const [startBetValue, setStartBetValue] = useState(total.bet);
   const [startBalanceValue, setStartBalanceValue] = useState(total.bet);
   const [startWinValue, setStartWinValue] = useState(total.win);
 
-  const readyToDeal = () => {
-    dealCards();
-  };
 
   const cashDisplayStateReducer = (state, action) => {
     setStartBetValue(total.bet);
@@ -235,21 +236,20 @@ export default function CashDisplay({ stage, bet, total, win, dealCards }) {
                 value={total.balance}
                 attr={commonTextAttr}
                 start={startBalanceValue}
-                doneAction={readyToDeal}
-                duration={0.3}
+                duration={durations.cashBalance / 1000}
               />
               <Counter
                 y={mainSpecs[1].yText}
                 value={total.bet}
                 attr={commonTextAttr}
                 start={startBetValue}
-                duration={0.5}
+                duration={durations.cashBet / 1000}
               />
               <Counter
                 y={mainSpecs[2].yText}
                 value={total.win}
                 attr={commonTextAttr}
-                start={startWinValue}
+                duration={durations.cashWin / 1000}
               />
             </g>
           </g>
