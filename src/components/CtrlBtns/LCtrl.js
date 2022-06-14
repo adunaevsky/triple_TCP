@@ -2,6 +2,7 @@ import React from "react";
 import "../../assets/CtrlBtns.css";
 import { midText, upperText, lowerText, ctrlRect } from "./specs";
 
+
 export default function LCtrl({ topLbl, btmLbl, opacity, action }) {
   return (
     <div className="ctrlHeight">

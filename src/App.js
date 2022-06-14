@@ -126,14 +126,13 @@ const App = () => {
       />
       <PlayerCards></PlayerCards>
       {stage.bet && <BetBtns updateBet={updateBet} bet={bet} />}
-      {stage.bet && (
-        <LCtrl
+      <LCtrl
           topLbl={"CLEAR"}
           opacity={total.bet > 0 ? 1 : 0.2}
           btmLbl={""}
           action={clearBet}
+          showCtrl={stage.bet }
         />
-      )}
       {stage.bet && (
         <RCtrl
           topLbl={"DEAL"}

@@ -1,0 +1,59 @@
+.playerCardsLR,
+.playerCardC,
+.dealerCards {
+    position: relative;
+}
+
+@media all and (min-aspect-ratio: 970 / 600) {
+    /*LANDSCAPE MODE*/
+    .playerCardsLR {
+        width: 56%;
+        top: 35%;
+        margin: 0 auto;
+    }
+    .dealerCards {
+        width: 56%;
+        top: 2%;
+        margin: 0 auto;
+    }
+    .playerCardC {
+        width: 56%;
+        top: 31%;
+        margin: 0 auto;
+    }
+}
+
+@media all and (max-aspect-ratio: 520 / 600) {
+    /*PORTRAIT MODE*/
+    .playerCardsLR {
+        width: 100%;
+        top: 34.5%;
+    }
+    .dealerCards {
+        width: 100%;
+        top: 13.2%;
+    }
+    .playerCardC {
+        width: 100%;
+        top: 33.5%;
+    }
+}
+
+@media all and (max-aspect-ratio: 970 / 600) and (min-aspect-ratio: 520 / 600) {
+    /*SQUARE (DESKTOP) MODE*/
+    .playerCardsLR {
+        width: 70%;
+        top: 33%;
+        margin: 0 auto;
+    }
+    .dealerCards {
+        width: 70%;
+        top: 6%;
+        margin: 0 auto;
+    }
+    .playerCardC {
+        width: 70%;
+        top: 32%;
+        margin: 0 auto;
+    }
+}

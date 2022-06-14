@@ -1,0 +1,348 @@
+  .flip-container {
+      perspective: 1000px;
+  }
+  /* flip the pane when hovered */
+  /* .flip-container:hover .flipper,
+  .flip-container.hover .flipper,*/
+  
+  .flip-container.flip .flipper {
+      transform: rotateY(180deg);
+  }
+  
+  .front,
+  .back {
+      width: 100%;
+      height: 100%;
+  }
+  /* flip speed goes here */
+  
+  .flipper {
+      transition: 0.6s;
+      transform-style: preserve-3d;
+      position: relative;
+  }
+  /* hide back of pane during swap */
+  
+  .front,
+  .back {
+      backface-visibility: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding-bottom: 128%;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+  }
+  /* front pane, placed above back */
+  
+  .front {
+      z-index: 2;
+      /* for firefox 31 */
+      transform: rotateY(0deg);
+  }
+  /* back, initially hidden pane */
+  
+  .back {
+      transform: rotateY(180deg);
+  }
+  
+  .setAnimation {
+      opacity: 1;
+      transform: scale(1);
+      transition: opacity 1s, transform 1s;
+  }
+  
+  .fade {
+      opacity: 0.2;
+      transform: scale(0.9);
+  }
+  
+  .cardAnimation-enter-active {
+      animation: cardAnimation-in .5s;
+  }
+  
+  .cardAnimation-leave-active {
+      animation: cardAnimation-out .2s;
+  }
+  
+  @keyframes cardAnimation-in {
+      0% {
+          transform: scale(0.4);
+          opacity: 0;
+      }
+      100% {
+          transform: scale(1);
+          opacity: 1;
+      }
+  }
+  
+  @keyframes cardAnimation-out {
+      0% {
+          transform: scale(1);
+      }
+      100% {
+          transform: scale(0);
+          opacity: 0;
+      }
+  }
+  
+  .cSize {
+      width: 18%;
+      padding-bottom: 23%;
+      background-size: 100% 100%;
+  }
+  
+  .c1Pos {
+      position: absolute;
+      left: 2%;
+  }
+  
+  .c2Pos {
+      position: absolute;
+      left: 21.5%;
+  }
+  
+  .c3Pos {
+      position: absolute;
+      left: 50%;
+      margin-left: -9%;
+  }
+  
+  .c4Pos {
+      position: absolute;
+      right: 21.5%;
+  }
+  
+  .c5Pos {
+      position: absolute;
+      right: 2%;
+  }
+  
+  .c6Pos {
+      position: absolute;
+      right: 21.5%;
+  }
+  
+  .c7Pos {
+      position: absolute;
+      right: 50%;
+      margin-right: -9%;
+  }
+  
+  .c8Pos {
+      position: absolute;
+      Left: 21.5%;
+  }
+  
+  .C10 {
+      background-image: url("./cards/10C.svg");
+  }
+  
+  .D10 {
+      background-image: url("./cards/10D.svg");
+  }
+  
+  .H10 {
+      background-image: url("./cards/10H.svg");
+  }
+  
+  .S10 {
+      background-image: url("./cards/10S.svg");
+  }
+  
+  .C2 {
+      background-image: url("./cards/2C.svg");
+  }
+  
+  .D2 {
+      background-image: url("./cards/2D.svg");
+  }
+  
+  .H2 {
+      background-image: url("./cards/2H.svg");
+  }
+  
+  .S2 {
+      background-image: url("./cards/2S.svg");
+  }
+  
+  .C3 {
+      background-image: url("./cards/3C.svg");
+  }
+  
+  .D3 {
+      background-image: url("./cards/3D.svg");
+  }
+  
+  .H3 {
+      background-image: url("./cards/3H.svg");
+  }
+  
+  .S3 {
+      background-image: url("./cards/3S.svg");
+  }
+  
+  .C4 {
+      background-image: url("./cards/4C.svg");
+  }
+  
+  .D4 {
+      background-image: url("./cards/4D.svg");
+  }
+  
+  .H4 {
+      background-image: url("./cards/4H.svg");
+  }
+  
+  .S4 {
+      background-image: url("./cards/4S.svg");
+  }
+  
+  .C5 {
+      background-image: url("./cards/5C.svg");
+  }
+  
+  .D5 {
+      background-image: url("./cards/5D.svg");
+  }
+  
+  .H5 {
+      background-image: url("./cards/5H.svg");
+  }
+  
+  .S5 {
+      background-image: url("./cards/5S.svg");
+  }
+  
+  .S6 {
+      background-image: url("./cards/6S.svg");
+  }
+  
+  .H6 {
+      background-image: url("./cards/6H.svg");
+  }
+  
+  .D6 {
+      background-image: url("./cards/6D.svg");
+  }
+  
+  .C6 {
+      background-image: url("./cards/6C.svg");
+  }
+  
+  .S7 {
+      background-image: url("./cards/7S.svg");
+  }
+  
+  .H7 {
+      background-image: url("./cards/7H.svg");
+  }
+  
+  .D7 {
+      background-image: url("./cards/7D.svg");
+  }
+  
+  .C7 {
+      background-image: url("./cards/7C.svg");
+  }
+  
+  .C8 {
+      background-image: url("./cards/8C.svg");
+  }
+  
+  .H8 {
+      background-image: url("./cards/8H.svg");
+  }
+  
+  .D8 {
+      background-image: url("./cards/8D.svg");
+  }
+  
+  .S8 {
+      background-image: url("./cards/8S.svg");
+  }
+  
+  .S9 {
+      background-image: url("./cards/9S.svg");
+  }
+  
+  .H9 {
+      background-image: url("./cards/9H.svg");
+  }
+  
+  .D9 {
+      background-image: url("./cards/9D.svg");
+  }
+  
+  .C9 {
+      background-image: url("./cards/9C.svg");
+  }
+  
+  .C11 {
+      background-image: url("./cards/JC.svg");
+  }
+  
+  .D11 {
+      background-image: url("./cards/JD.svg");
+  }
+  
+  .H11 {
+      background-image: url("./cards/JH.svg");
+  }
+  
+  .S11 {
+      background-image: url("./cards/JS.svg");
+  }
+  
+  .S13 {
+      background-image: url("./cards/KS.svg");
+  }
+  
+  .H13 {
+      background-image: url("./cards/KH.svg");
+  }
+  
+  .D13 {
+      background-image: url("./cards/KD.svg");
+  }
+  
+  .C13 {
+      background-image: url("./cards/KC.svg");
+  }
+  
+  .C12 {
+      background-image: url("./cards/QC.svg");
+  }
+  
+  .H12 {
+      background-image: url("./cards/QH.svg");
+  }
+  
+  .D12 {
+      background-image: url("./cards/QD.svg");
+  }
+  
+  .S12 {
+      background-image: url("./cards/QS.svg");
+  }
+  
+  .C14 {
+      background-image: url("./cards/AC.svg");
+  }
+  
+  .H14 {
+      background-image: url("./cards/AH.svg");
+  }
+  
+  .D14 {
+      background-image: url("./cards/AD.svg");
+  }
+  
+  .S14 {
+      background-image: url("./cards/AS.svg");
+  }
+  
+  .cBack1 {
+      background-image: url("./cards/cardBack2.svg");
+  }
