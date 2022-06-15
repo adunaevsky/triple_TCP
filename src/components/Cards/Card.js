@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CSSTransition } from "react-transition-group";
 
-export default function Card({ pos, cardVal, flip, deal }) {
+export default function Card({ pos, cardVal, flip, deal, fade }) {
   const [time, setTime] = useState(500);
   return (
     <CSSTransition
@@ -20,8 +20,8 @@ export default function Card({ pos, cardVal, flip, deal }) {
           className={
             "cSize flip-container setAnimation " +
             pos +
-            " " +
-            (flip ? "flip" : "")
+            (flip ? " flip" : "") + 
+            (fade ? " fade" : "")  
           }
         >
           <div className="flipper">
