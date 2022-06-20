@@ -50,11 +50,19 @@ export const initStageOptions = {
   betDone: false,
   dealCards: false,
   dealCounterDone: false,
+  showPlayerHands: false,
 };
 export const initStages = {
   bet: "deal",
   betDone: "betDone",
   dealCards: "dealCards",
   dealCounterDone: "dealCounterDone",
+  showPlayerHands: "showPlayerHands",
 };
 
+export const initialPlayerHands = {
+  main: { label: "", fill: "" },
+  l: { label: "", fill: "" },
+  m: { label: "", fill: "" },
+  r: { label: "", fill: "" },
+};

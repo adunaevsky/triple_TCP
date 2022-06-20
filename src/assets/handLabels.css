@@ -1,0 +1,24 @@
+.playerCardLbls {
+    position: relative;
+}
+
+@media all and (min-aspect-ratio: 970 / 600) {
+    /*LANDSCAPE MODE*/
+    .playerCardLbls {
+        top: 47%;
+    }
+}
+
+@media all and (max-aspect-ratio: 520 / 600) {
+    /*PORTRAIT MODE*/
+    .playerCardLbls {
+        top: 42%;
+    }
+}
+
+@media all and (max-aspect-ratio: 970 / 600) and (min-aspect-ratio: 520 / 600) {
+    /*SQUARE (DESKTOP) MODE*/
+    .playerCardLbls {
+        top: 42%;
+    }
+}

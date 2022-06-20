@@ -8,6 +8,7 @@ import DealerCards from "./components/Cards/DealerCards";
 import Deck from "./components/Cards/Deck";
 import result5C from "./components/Cards/result5C";
 import result3C from "./components/Cards/result3C";
+import PlayerHands from "./components/ResultLabels/PlayerHands";
 
 import {
   DealCards,
@@ -24,7 +25,7 @@ import {
   durations,
   initStageOptions,
   initStages,
-  initPCardPos,
+  initialPlayerHands,
 } from "./appSpecs";
 
 import { useState, useReducer, useEffect } from "react";
@@ -48,6 +49,9 @@ const App = () => {
   const [pDeal, setPDeal] = useState([false, false, false, false, false]);
   const [fade, setFade] = useState([false, false, false, false, false]);
   const [pCardValues, setCardValues] = useState(["", "", "", "", ""]);
+
+  const [pHandResults, setPHandResults] = useState(initialPlayerHands);
+
   const pFlipCards = () => {
     setCardValues(CardDeck.playerCards);
     //console.log(pCardValues, '???', CardDeck.playerCards);
@@ -163,11 +167,20 @@ const App = () => {
 
   const showPHandResults = () => {
     setTimeout(() => {
-      let result5 = fiveCResult.fiveCards(CardDeck.playerCards)
-      let result3L = threeCResult.threeCards(CardDeck.playerCards.slice(0,3));
-      let result3M = threeCResult.threeCards(CardDeck.playerCards.slice(1,4));
-      let result3R = threeCResult.threeCards(CardDeck.playerCards.slice(2));
-      console.log(result5, result3L, result3M,result3R );
+      let pResult5 = fiveCResult.fiveCards(CardDeck.playerCards);
+      let pResult3L = threeCResult.threeCards(CardDeck.playerCards.slice(0, 3));
+      let pResult3M = threeCResult.threeCards(CardDeck.playerCards.slice(1, 4));
+      let pResult3R = threeCResult.threeCards(CardDeck.playerCards.slice(2));
+     
+
+      setPHandResults({
+        main: { label: pResult5.label, fill: pResult5.fill },
+        l: { label: pResult3L.label, fill:pResult3L.fill },
+        m: { label: pResult3M.label, fill: pResult3M.fill },
+        r: { label: pResult3R.label, fill: pResult3R.fill },
+      });
+
+      dispatchStage({ type: stages.showPlayerHands });
     }, 500);
   };
 
@@ -191,6 +204,9 @@ const App = () => {
         cardValues={pCardValues}
       ></PlayerCards>
       {stage.bet && <BetBtns updateBet={updateBet} bet={bet} />}
+
+      {stage.showPlayerHands && <PlayerHands handResults={pHandResults} />}
+
       {stage.bet && (
         <LCtrl
           topLbl={"CLEAR"}
