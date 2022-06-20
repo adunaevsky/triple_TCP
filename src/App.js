@@ -6,6 +6,8 @@ import RCtrl from "./components/CtrlBtns/RCtrl";
 import PlayerCards from "./components/Cards/PlayerCards";
 import DealerCards from "./components/Cards/DealerCards";
 import Deck from "./components/Cards/Deck";
+import result5C from "./components/Cards/result5C";
+import result3C from "./components/Cards/result3C";
 
 import {
   DealCards,
@@ -30,6 +32,9 @@ import { useState, useReducer, useEffect } from "react";
 const CardDeck = new Deck();
 CardDeck.newDeck();
 
+const fiveCResult = new result5C();
+const threeCResult = new result3C();
+
 const App = () => {
   const [bet, setBet] = useState(initBet);
   const [win, setWin] = useState(initWin);
@@ -44,9 +49,9 @@ const App = () => {
   const [fade, setFade] = useState([false, false, false, false, false]);
   const [pCardValues, setCardValues] = useState(["", "", "", "", ""]);
   const pFlipCards = () => {
-    console.log(CardDeck);
     setCardValues(CardDeck.playerCards);
-    FlipCards(setPFlip, 5);
+    //console.log(pCardValues, '???', CardDeck.playerCards);
+    FlipCards(setPFlip, 5, showPHandResults);
   };
 
   const pDealCards = () => {
@@ -156,6 +161,16 @@ const App = () => {
     pDealCards();
   };
 
+  const showPHandResults = () => {
+    setTimeout(() => {
+      let result5 = fiveCResult.fiveCards(CardDeck.playerCards)
+      let result3L = threeCResult.threeCards(CardDeck.playerCards.slice(0,3));
+      let result3M = threeCResult.threeCards(CardDeck.playerCards.slice(1,4));
+      let result3R = threeCResult.threeCards(CardDeck.playerCards.slice(2));
+      console.log(result5, result3L, result3M,result3R );
+    }, 500);
+  };
+
   return (
     <div className="playingField">
       <CashDisplay
@@ -165,7 +180,11 @@ const App = () => {
         win={win}
         anteBetMade={anteBetMade.lmr}
       />
-      <DealerCards deal={dDeal} cardValues={dCardValues}></DealerCards>
+      <DealerCards
+        deal={dDeal}
+        cardValues={dCardValues}
+        flip={dFlip}
+      ></DealerCards>
       <PlayerCards
         deal={pDeal}
         flip={pFlip}

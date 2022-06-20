@@ -20,7 +20,7 @@ export function DealCards(setDeal, totalCards, Deck, target, doneTask) {
   }, 200);
 }
 
-export function FlipCards(setFlip, totalCards) {
+export function FlipCards(setFlip, totalCards, doneTask) {
   let cardNum = 0;
   let flipInterval = setInterval(() => {
     cardNum++;
@@ -37,6 +37,7 @@ export function FlipCards(setFlip, totalCards) {
 
     if (cardNum === totalCards) {
       clearInterval(flipInterval);
+      doneTask();
     }
   }, 200);
 }
