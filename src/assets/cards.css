@@ -118,8 +118,7 @@
       position: absolute;
       right: 2%;
   }
-  
-  .c6Pos {
+  /*   .c6Pos {
       position: absolute;
       right: 21.5%;
   }
@@ -133,7 +132,7 @@
   .c8Pos {
       position: absolute;
       Left: 21.5%;
-  }
+  } */
   
   .C10 {
       background-image: url("./cards/10C.svg");

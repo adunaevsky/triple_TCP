@@ -39,9 +39,22 @@ export const initBetMade = {
   lmr: false,
 };
 
-
 export const durations = {
-    cashBalance: 500,
-    cashBet: 500,
-    cashWin: 2000
-  }
+  cashBalance: 500,
+  cashBet: 500,
+  cashWin: 2000,
+};
+
+export const initStageOptions = {
+  bet: true,
+  betDone: false,
+  dealCards: false,
+  dealCounterDone: false,
+};
+export const initStages = {
+  bet: "deal",
+  betDone: "betDone",
+  dealCards: "dealCards",
+  dealCounterDone: "dealCounterDone",
+};
+
