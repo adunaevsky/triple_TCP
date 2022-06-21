@@ -205,7 +205,7 @@ const App = () => {
       ></PlayerCards>
       {stage.bet && <BetBtns updateBet={updateBet} bet={bet} />}
 
-      {stage.showPlayerHands && <PlayerHands handResults={pHandResults} />}
+      {stage.showPlayerHands && <PlayerHands results={pHandResults} />}
 
       {stage.bet && (
         <LCtrl

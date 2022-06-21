@@ -16,6 +16,8 @@ export default function BetBtns({ updateBet, bet }) {
     v > 0 ? "svgBetBtnOutline" : "svgBetBtnOutline betBtnFlash";
   const anteFontY = (v) => (v > 99 ? 14 : 14.5);
 
+  const polygonPoints = "25,0 0,10 25,20, 50,10"
+
   return (
     <div className="chipButtonsArea">
       <div className="chipButtonsAreaTop">
@@ -94,7 +96,7 @@ export default function BetBtns({ updateBet, bet }) {
             onClick={() => updateBet("ante", "l")}
           >
             <polygon
-              points="25,0 0,10 25,20, 50,10"
+              points={polygonPoints}
               className={setFlash(bet.ante.l)}
               style={{ fill: "#af2121" }}
             />
@@ -116,7 +118,7 @@ export default function BetBtns({ updateBet, bet }) {
             onClick={() => updateBet("ante", "m")}
           >
             <polygon
-              points="25,0 0,10 25,20, 50,10"
+              points={polygonPoints}
               className={setFlash(bet.ante.m)}
               style={{ fill: "#af2121" }}
             />
@@ -138,7 +140,7 @@ export default function BetBtns({ updateBet, bet }) {
             onClick={() => updateBet("ante", "r")}
           >
             <polygon
-              points="25,0 0,10 25,20, 50,10"
+              points={polygonPoints}
               className={setFlash(bet.ante.r)}
               style={{ fill: "#af2121" }}
             />

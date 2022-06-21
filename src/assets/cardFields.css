@@ -43,12 +43,12 @@
     /*SQUARE (DESKTOP) MODE*/
     .playerCardsLR {
         width: 70%;
-        top: 33%;
+        top: 38%;
         margin: 0 auto;
     }
     .dealerCards {
         width: 70%;
-        top: 6%;
+        top: 12%;
         margin: 0 auto;
     }
     .playerCardC {
