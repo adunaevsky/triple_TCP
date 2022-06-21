@@ -8,7 +8,9 @@ import DealerCards from "./components/Cards/DealerCards";
 import Deck from "./components/Cards/Deck";
 import result5C from "./components/Cards/result5C";
 import result3C from "./components/Cards/result3C";
-import PlayerHands from "./components/ResultLabels/PlayerHands";
+import PlayerHands, {
+  RevealResults, SetPHands
+} from "./components/ResultLabels/PlayerHands";
 
 import {
   DealCards,
@@ -43,14 +45,19 @@ const App = () => {
   const [anteBetMade, setAnteBetMade] = useState(initBetMade);
   const stageOptions = initStageOptions;
   const stages = initStages;
+  const fiveFalse = [false, false, false, false, false];
+  const fourFalse = [false, false, false, false];
 
   const pCardPos = ["c1Pos", "c2Pos", "c3Pos", "c4Pos", "c5Pos"];
-  const [pFlip, setPFlip] = useState([false, false, false, false, false]);
-  const [pDeal, setPDeal] = useState([false, false, false, false, false]);
-  const [fade, setFade] = useState([false, false, false, false, false]);
+  const [pFlip, setPFlip] = useState(fiveFalse);
+  const [pDeal, setPDeal] = useState(fiveFalse);
+  const [fade, setFade] = useState(fiveFalse);
   const [pCardValues, setCardValues] = useState(["", "", "", "", ""]);
 
   const [pHandResults, setPHandResults] = useState(initialPlayerHands);
+  const [showPResults, setShowPResults] = useState(fourFalse);
+
+  let pResult5, pResult3L, pResult3M, pResult3R;
 
   const pFlipCards = () => {
     setCardValues(CardDeck.playerCards);
@@ -167,21 +174,18 @@ const App = () => {
 
   const showPHandResults = () => {
     setTimeout(() => {
-      let pResult5 = fiveCResult.fiveCards(CardDeck.playerCards);
-      let pResult3L = threeCResult.threeCards(CardDeck.playerCards.slice(0, 3));
-      let pResult3M = threeCResult.threeCards(CardDeck.playerCards.slice(1, 4));
-      let pResult3R = threeCResult.threeCards(CardDeck.playerCards.slice(2));
-     
 
-      setPHandResults({
-        main: { label: pResult5.label, fill: pResult5.fill },
-        l: { label: pResult3L.label, fill:pResult3L.fill },
-        m: { label: pResult3M.label, fill: pResult3M.fill },
-        r: { label: pResult3R.label, fill: pResult3R.fill },
-      });
+
+      SetPHands(setPHandResults, pResult5, pResult3L, pResult3M, pResult3R, threeCResult, fiveCResult, CardDeck);
+      
+      RevealResults(setShowPResults, displayMoveOptions("m"));
 
       dispatchStage({ type: stages.showPlayerHands });
     }, 500);
+  };
+
+  const displayMoveOptions = (move) => {
+    console.log(move, 'fade cards...')
   };
 
   return (
@@ -205,7 +209,9 @@ const App = () => {
       ></PlayerCards>
       {stage.bet && <BetBtns updateBet={updateBet} bet={bet} />}
 
-      {stage.showPlayerHands && <PlayerHands results={pHandResults} />}
+      {stage.showPlayerHands && (
+        <PlayerHands results={pHandResults} show={showPResults} />
+      )}
 
       {stage.bet && (
         <LCtrl
