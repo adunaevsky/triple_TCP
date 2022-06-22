@@ -116,15 +116,9 @@ export function SetPHands(
   pResult5,
   pResult3L,
   pResult3M,
-  pResult3R,
-  threeCResult,
-  fiveCResult,
-  CardDeck
+  pResult3R
 ) {
-  pResult5 = fiveCResult.fiveCards(CardDeck.playerCards);
-  pResult3L = threeCResult.threeCards(CardDeck.playerCards.slice(0, 3));
-  pResult3M = threeCResult.threeCards(CardDeck.playerCards.slice(1, 4));
-  pResult3R = threeCResult.threeCards(CardDeck.playerCards.slice(2));
+  
 
   setPHandResults({
     main: { label: pResult5.label, fill: pResult5.fill },

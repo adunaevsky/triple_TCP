@@ -9,7 +9,8 @@ import Deck from "./components/Cards/Deck";
 import result5C from "./components/Cards/result5C";
 import result3C from "./components/Cards/result3C";
 import PlayerHands, {
-  RevealResults, SetPHands
+  RevealResults,
+  SetPHands,
 } from "./components/ResultLabels/PlayerHands";
 
 import {
@@ -174,18 +175,18 @@ const App = () => {
 
   const showPHandResults = () => {
     setTimeout(() => {
-
-
-      SetPHands(setPHandResults, pResult5, pResult3L, pResult3M, pResult3R, threeCResult, fiveCResult, CardDeck);
-      
+      pResult5 = fiveCResult.fiveCards(CardDeck.playerCards);
+      pResult3L = threeCResult.threeCards(CardDeck.playerCards.slice(0, 3));
+      pResult3M = threeCResult.threeCards(CardDeck.playerCards.slice(1, 4));
+      pResult3R = threeCResult.threeCards(CardDeck.playerCards.slice(2));
+      SetPHands(setPHandResults, pResult5, pResult3L, pResult3M, pResult3R);
       RevealResults(setShowPResults, displayMoveOptions("m"));
-
       dispatchStage({ type: stages.showPlayerHands });
     }, 500);
   };
 
   const displayMoveOptions = (move) => {
-    console.log(move, 'fade cards...')
+    console.log(move, "fade cards...");
   };
 
   return (
