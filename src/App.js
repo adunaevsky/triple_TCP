@@ -180,7 +180,7 @@ const App = () => {
       pResult3M = threeCResult.threeCards(CardDeck.playerCards.slice(1, 4));
       pResult3R = threeCResult.threeCards(CardDeck.playerCards.slice(2));
       SetPHands(setPHandResults, pResult5, pResult3L, pResult3M, pResult3R);
-      RevealResults(setShowPResults, displayMoveOptions("m"));
+      RevealResults(setShowPResults, displayMoveOptions);
       dispatchStage({ type: stages.showPlayerHands });
     }, 500);
   };

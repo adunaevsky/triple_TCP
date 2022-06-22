@@ -128,7 +128,7 @@ export function SetPHands(
   });
 }
 
-export function RevealResults(setShowPResults, doneTask) {
+export function RevealResults(setShowPResults, nextTask) {
   let resultNum = 0,
     totalResults = 4;
   let flipInterval = setInterval(() => {
@@ -146,7 +146,7 @@ export function RevealResults(setShowPResults, doneTask) {
 
     if (resultNum === totalResults) {
       clearInterval(flipInterval);
-      doneTask();
+      nextTask('m');
     }
   }, 200);
 }
