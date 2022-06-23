@@ -29,6 +29,8 @@ import {
   initStageOptions,
   initStages,
   initialPlayerHands,
+  FadeCardOptions,
+  FadeResultOptions
 } from "./appSpecs";
 
 import { useState, useReducer, useEffect } from "react";
@@ -52,7 +54,8 @@ const App = () => {
   const pCardPos = ["c1Pos", "c2Pos", "c3Pos", "c4Pos", "c5Pos"];
   const [pFlip, setPFlip] = useState(fiveFalse);
   const [pDeal, setPDeal] = useState(fiveFalse);
-  const [fade, setFade] = useState(fiveFalse);
+  const [fadeCards, setFadeCards] = useState(fiveFalse);
+  const [fadeResults, setFadeResults] = useState(fourFalse);
   const [pCardValues, setCardValues] = useState(["", "", "", "", ""]);
 
   const [pHandResults, setPHandResults] = useState(initialPlayerHands);
@@ -74,7 +77,7 @@ const App = () => {
   };
 
   const pUpdateFade = (fadeSpecs) => {
-    setFade(() => {
+    setFadeCards(() => {
       return fadeSpecs;
     });
   };
@@ -187,6 +190,10 @@ const App = () => {
 
   const displayMoveOptions = (move) => {
     console.log(move, "fade cards...");
+    setFadeCards(FadeCardOptions[move]);
+    setFadeResults(FadeResultOptions[move]);
+    
+    dispatchStage({ type: stages.pMove_m });
   };
 
   return (
@@ -207,11 +214,16 @@ const App = () => {
         deal={pDeal}
         flip={pFlip}
         cardValues={pCardValues}
+        fade={fadeCards}
       ></PlayerCards>
       {stage.bet && <BetBtns updateBet={updateBet} bet={bet} />}
 
       {stage.showPlayerHands && (
-        <PlayerHands results={pHandResults} show={showPResults} />
+        <PlayerHands
+          results={pHandResults}
+          show={showPResults}
+          fade={fadeResults}
+        />
       )}
 
       {stage.bet && (

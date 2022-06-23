@@ -11,8 +11,6 @@ class threeCardResults {
             })
         });
 
-        console.log(card);
-
         if (this.royalSpades(card)) {
             r.label = 'Royal ♠♠♠ 500X';
             r.dLabel = 'Short Royal';

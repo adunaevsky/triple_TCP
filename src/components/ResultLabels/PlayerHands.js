@@ -1,10 +1,43 @@
 import React from "react";
 import "../../assets/handLabels.css";
 
-export default function PlayerHands({ results, show }) {
+export default function PlayerHands({ results, show, fade }) {
+  const rectOpacity = (num) => {
+    return fade[num] ? "0.2" : "1";
+  };
+  const textOpacity = (num) => {
+    return fade[num] ? "0.2" : "0.8";
+  };
   return (
     <div className="playerCardLbls">
       <svg viewBox="0 -1 348.8 60" className="lblBase lblSizeBig">
+        {show[0] && (
+          <g>
+            <rect
+              fill={results.m.fill}
+              x="86.55"
+              y="0"
+              width="173.4"
+              height="18.4"
+              rx="8.37"
+              ry="8.37"
+              className="svgLblBase"
+              opacity={rectOpacity(0)}
+            ></rect>
+            <text
+              textAnchor="middle"
+              fontWeight="bold"
+              fontSize="14"
+              x="174"
+              y="14"
+              fill="#ffffff"
+              opacity={textOpacity(0)}
+            >
+              {results.m.label}
+            </text>
+          </g>
+        )}
+
         {show[1] && (
           <g>
             <rect
@@ -16,6 +49,7 @@ export default function PlayerHands({ results, show }) {
               rx="8.37"
               ry="8.37"
               className="svgLblBase"
+              opacity={rectOpacity(1)}
             ></rect>
             <text
               textAnchor="middle"
@@ -24,7 +58,7 @@ export default function PlayerHands({ results, show }) {
               x="87.45"
               y="33"
               fill="#ffffff"
-              opacity="0.8"
+              opacity={textOpacity(1)}
             >
               {results.l.label}
             </text>
@@ -41,6 +75,7 @@ export default function PlayerHands({ results, show }) {
               rx="8.37"
               ry="8.37"
               className="svgLblBase"
+              opacity={rectOpacity(2)}
             ></rect>
             <text
               textAnchor="middle"
@@ -49,38 +84,13 @@ export default function PlayerHands({ results, show }) {
               x="261.35"
               y="33"
               fill="#ffffff"
-              opacity="0.8"
+              opacity={textOpacity(2)}
             >
               {results.r.label}
             </text>
           </g>
         )}
 
-        {show[0] && (
-          <g>
-            <rect
-              fill={results.m.fill}
-              x="86.55"
-              y="0"
-              width="173.4"
-              height="18.4"
-              rx="8.37"
-              ry="8.37"
-              className="svgLblBase"
-            ></rect>
-            <text
-              textAnchor="middle"
-              fontWeight="bold"
-              fontSize="14"
-              x="174"
-              y="14"
-              fill="#ffffff"
-              opacity="0.8"
-            >
-              {results.m.label}
-            </text>
-          </g>
-        )}
         {show[3] && (
           <g>
             <rect
@@ -92,6 +102,7 @@ export default function PlayerHands({ results, show }) {
               rx="8.37"
               ry="8.37"
               className="svgLblBase"
+              opacity={rectOpacity(3)}
             ></rect>
             <text
               textAnchor="middle"
@@ -100,7 +111,7 @@ export default function PlayerHands({ results, show }) {
               x="174"
               y="51.5"
               fill="#ffffff"
-              opacity="0.8"
+              opacity={textOpacity(3)}
             >
               {results.main.label}
             </text>
@@ -118,8 +129,6 @@ export function SetPHands(
   pResult3M,
   pResult3R
 ) {
-  
-
   setPHandResults({
     main: { label: pResult5.label, fill: pResult5.fill },
     l: { label: pResult3L.label, fill: pResult3L.fill },
@@ -146,7 +155,7 @@ export function RevealResults(setShowPResults, nextTask) {
 
     if (resultNum === totalResults) {
       clearInterval(flipInterval);
-      nextTask('m');
+      nextTask("m");
     }
   }, 200);
 }

@@ -51,6 +51,9 @@ export const initStageOptions = {
   dealCards: false,
   dealCounterDone: false,
   showPlayerHands: false,
+  pMove_m: false,
+  pMove_l: false,
+  pMove_r: false,
 };
 export const initStages = {
   bet: "deal",
@@ -58,6 +61,9 @@ export const initStages = {
   dealCards: "dealCards",
   dealCounterDone: "dealCounterDone",
   showPlayerHands: "showPlayerHands",
+  pMove_m: "pMove_m",
+  pMove_l: "pMove_l",
+  pMove_r: "pMove_r",
 };
 
 export const initialPlayerHands = {
@@ -65,4 +71,17 @@ export const initialPlayerHands = {
   l: { label: "", fill: "" },
   m: { label: "", fill: "" },
   r: { label: "", fill: "" },
+};
+
+export const FadeCardOptions = {
+  m: [true, false, false, false, true],
+  l: [true, true, false, false, false],
+  r: [false, false, false, true, true],
+  none: [false, false, false, false, false],
+};
+export const FadeResultOptions = {
+  m: [false, true, true, true],
+  l: [true, false, true, true],
+  r: [true, true, false, true],
+  none: [true, true, true, false],
 };
