@@ -3,7 +3,7 @@ import "../../assets/CtrlBtns.css";
 import { midText, upperText, lowerText, ctrlRect } from "./specs";
 
 
-export default function LCtrl({ topLbl, btmLbl, opacity, action }) {
+export default function LCtrl({ topLbl, btmLbl, opacity, action, actionSpec }) {
   return (
     <div className="ctrlHeight">
       <div className="btnBase lBtnCtrl">
@@ -16,20 +16,20 @@ export default function LCtrl({ topLbl, btmLbl, opacity, action }) {
             {...ctrlRect}
             x="-640"
             className="ctrlBtnRect"
-            onClick={() => action()}
+            onClick={() => action(actionSpec)}
           />
           {btmLbl === "" && (
-            <text opacity={opacity} {...midText} onClick={() => action()}>
+            <text opacity={opacity} x="75" {...midText} onClick={() => action(actionSpec)}>
               {topLbl}
             </text>
           )}
           {btmLbl !== "" && (
-            <text opacity={opacity} {...upperText} onClick={() => action()}>
+            <text opacity={opacity} x="75" {...upperText} onClick={() => action(actionSpec)}>
               {topLbl}
             </text>
           )}
           {btmLbl !== "" && (
-            <text opacity={opacity} {...lowerText} onClick={() => action()}>
+            <text opacity={opacity} x="75" {...lowerText} onClick={() => action(actionSpec)}>
               {btmLbl}
             </text>
           )}

@@ -149,7 +149,7 @@ export function RevealResults(setShowPResults, nextTask) {
           result.push(true);
         } else result.push(false);
       }
-
+//console.log(result);
       return result;
     });
 

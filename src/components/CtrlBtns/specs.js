@@ -2,7 +2,6 @@ const textAttrs = {
   textAnchor: "middle",
   fontWeight: "bold",
   fontSize: "40",
-  x: "80",
   fill: "#fff",
 };
 export const midText = {
@@ -12,6 +11,7 @@ export const midText = {
 export const upperText = {
   ...textAttrs,
   y: "85",
+  fontSize:"35"
 };
 export const lowerText = {
   ...textAttrs,
