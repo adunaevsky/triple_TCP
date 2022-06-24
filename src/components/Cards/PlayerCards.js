@@ -7,7 +7,7 @@ export default function PlayerCards({ deal, flip, cardValues, fade }) {
   const cardPos = ["c1Pos", "c2Pos", "c3Pos", "c4Pos", "c5Pos"];
 
   return (
-    <div className="playerCardsLR">
+    <div className="playerCards">
       {cardPos.map((pos, i) => {
         return (
           <Card

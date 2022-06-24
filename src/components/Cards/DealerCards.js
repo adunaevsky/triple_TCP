@@ -5,9 +5,9 @@ import Card from "./Card";
 
 import { DealCards, FlipCards, ClearCards } from "./CardActions";
 
-export default function DealerCards({deal}) {
+export default function DealerCards({deal, flip}) {
   const cardPos = ["c2Pos", "c3Pos", "c4Pos"];
-  const [flip, setFlip] = useState([false, false, false]);
+  //const [flip, setFlip] = useState([false, false, false]);
   //const [deal, setDeal] = useState([false, false, false]);
   const [cardValues, setCardValues] = useState(["H12", "H9", "C11"]);
 /*   const flipCards = () => {

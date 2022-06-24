@@ -56,7 +56,7 @@
 @media all and (max-aspect-ratio: 520 / 600) {
     /*PORTRAIT MODE*/
     .ctrlHeight {
-        bottom: -47%;
+        bottom: -70%;
         position: relative;
     }
 }
@@ -64,7 +64,7 @@
 @media all and (max-aspect-ratio: 970 / 600) and (min-aspect-ratio: 520 / 600) {
     /*SQUARE (DESKTOP) MODE*/
     .ctrlHeight {
-        bottom: -30%;
+        bottom: -65%;
         position: relative;
     }
 }

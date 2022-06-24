@@ -7,12 +7,10 @@
 }
 
 @media all and (min-aspect-ratio: 970 / 600) {
-
     /*LANDSCAPE MODE*/
     .playerCardLbls {
-        top: 50%;
+        top: 70%;
     }
-
     .lblSizeBig {
         width: 56%;
         padding-bottom: 4%;
@@ -22,12 +20,10 @@
 }
 
 @media all and (max-aspect-ratio: 520 / 600) {
-
     /*PORTRAIT MODE*/
     .playerCardLbls {
-        top: 45%;
+        top: 50%;
     }
-
     .lblSizeBig {
         width: 100%;
         padding-bottom: 4%;
@@ -36,12 +32,10 @@
 }
 
 @media all and (max-aspect-ratio: 970 / 600) and (min-aspect-ratio: 520 / 600) {
-
     /*SQUARE (DESKTOP) MODE*/
     .playerCardLbls {
-        top: 55%;
+        top: 65%;
     }
-
     .lblSizeBig {
         width: 68%;
         padding-bottom: 4%;

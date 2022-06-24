@@ -30,7 +30,8 @@ import {
   initStages,
   initialPlayerHands,
   FadeCardOptions,
-  FadeResultOptions
+  FadeResultOptions,
+  NextGameStage,
 } from "./appSpecs";
 
 import { useState, useReducer, useEffect } from "react";
@@ -51,7 +52,7 @@ const App = () => {
   const fiveFalse = [false, false, false, false, false];
   const fourFalse = [false, false, false, false];
 
-  const pCardPos = ["c1Pos", "c2Pos", "c3Pos", "c4Pos", "c5Pos"];
+  //  const pCardPos = ["c1Pos", "c2Pos", "c3Pos", "c4Pos", "c5Pos"];
   const [pFlip, setPFlip] = useState(fiveFalse);
   const [pDeal, setPDeal] = useState(fiveFalse);
   const [fadeCards, setFadeCards] = useState(fiveFalse);
@@ -82,13 +83,17 @@ const App = () => {
     });
   };
 
-  const cardPos = ["c2Pos", "c3Pos", "c4Pos"];
+  //  const cardPos = ["c2Pos", "c3Pos", "c4Pos"];
   const [dFlip, setDFlip] = useState([false, false, false]);
   const [dDeal, setDDeal] = useState([false, false, false]);
   const [dCardValues, setDCardValues] = useState(["", "", ""]);
   const dFlipCards = () => {
-    FlipCards(setDFlip, 3);
+    FlipCards(setDFlip, 3, endRound);
   };
+
+  const endRound = ()=>{
+    console.log('round ended');
+  }
 
   const dDealCards = () => {
     DealCards(setDDeal, 3, CardDeck, "dealer", pFlipCards);
@@ -98,8 +103,8 @@ const App = () => {
     ClearCards(setDDeal, setDFlip, 3);
   };
 
-  const updateBet = (betType, pos) => {
-    const newBetValue = nextVal[bet[betType][pos]];
+  const updateBet = (betType, pos, value) => {
+    const newBetValue = betType !== "play" ? nextVal[bet[betType][pos]] : value;
     setBet({
       ...bet,
       [betType]: { ...bet[betType], [pos]: newBetValue },
@@ -127,13 +132,6 @@ const App = () => {
       console.log("cannot bet");
     }
   };
-
-  const playBtn = (pos) => {
-    console.log(pos, 'to play!');
-  }
-  const foldBtn = (pos) => {
-    console.log(pos, 'to fold!');
-  }
 
   const setLMRAnte = (pos, newBetValue) => {
     if (newBetValue === 0) {
@@ -196,11 +194,29 @@ const App = () => {
   };
 
   const displayMoveOptions = (move) => {
-    console.log(move, "fade cards...");
-    setFadeCards(FadeCardOptions[move]);
-    setFadeResults(FadeResultOptions[move]);
-    console.log(FadeResultOptions[move]);
-    dispatchStage({ type: stages.pMove_m });
+    if (move === "revealDealer") {
+      setFadeCards(FadeCardOptions.none);
+      setFadeResults(FadeResultOptions.none);
+      dispatchStage({ type: stages.hideCtrls });
+      dFlipCards();
+
+      console.log("flip dealer cards here, and reveal results.");
+    } else {
+      setFadeCards(FadeCardOptions[move]);
+      setFadeResults(FadeResultOptions[move]);
+      dispatchStage({ type: stages.hideCtrls });
+      setTimeout(() => {
+        dispatchStage({ type: stages["pMove_" + move] });
+      }, 800);
+    }
+  };
+
+  const playBtn = (pos) => {
+    updateBet("play", pos, bet.ante[pos]);
+    displayMoveOptions(NextGameStage[pos]);
+  };
+  const foldBtn = (pos) => {
+    displayMoveOptions(NextGameStage[pos]);
   };
 
   return (
@@ -223,7 +239,11 @@ const App = () => {
         cardValues={pCardValues}
         fade={fadeCards}
       ></PlayerCards>
-      {(stage.showPlayerHands || stage.pMove_m || stage.pMove_l || stage.pMove_r) && (
+      {(stage.showPlayerHands ||
+        stage.pMove_m ||
+        stage.pMove_l ||
+        stage.hideCtrls ||
+        stage.pMove_r) && (
         <PlayerHands
           results={pHandResults}
           show={showPResults}
@@ -231,79 +251,78 @@ const App = () => {
         />
       )}
 
-      {stage.bet && (<>
-        <BetBtns updateBet={updateBet} bet={bet} />
-        <LCtrl
-          topLbl={"CLEAR"}
-          opacity={total.bet > 0 ? 1 : 0.2}
-          btmLbl={""}
-          action={clearBet}
-        />
-        <RCtrl
-          topLbl={"DEAL"}
-          opacity={anteBetMade.lmr ? "1" : "0.2"}
-          btmLbl={""}
-          action={dealBtn}
-        />
-      </>
+      {stage.bet && (
+        <>
+          <BetBtns updateBet={updateBet} bet={bet} />
+          <LCtrl
+            topLbl={"CLEAR"}
+            opacity={total.bet > 0 ? 1 : 0.2}
+            btmLbl={""}
+            action={clearBet}
+          />
+          <RCtrl
+            topLbl={"DEAL"}
+            opacity={anteBetMade.lmr ? "1" : "0.2"}
+            btmLbl={""}
+            action={dealBtn}
+          />
+        </>
       )}
-      {stage.pMove_m && (<>
-        <LCtrl
-          topLbl={"MIDDLE"}
-          opacity={total.bet > 0 ? 1 : 0.2}
-          btmLbl={"FOLD"}
-          action={foldBtn}
-          actionSpec="m"
-        />
-        <RCtrl
-          topLbl={"MIDDLE"}
-          opacity={anteBetMade.lmr ? "1" : "0.2"}
-          btmLbl={"PLAY"}
-          action={playBtn}
-          actionSpec="m"
-        />
-      </>
-      )}
-
-      {stage.pMove_l && (<>
-        <LCtrl
-          topLbl={"LEFT"}
-          opacity={"1"}
-          btmLbl={"FOLD"}
-          action={foldBtn}
-          actionSpec="l"
-        />
-        <RCtrl
-          topLbl={"LEFT"}
-          opacity={"1"}
-          btmLbl={"PLAY"}
-          action={playBtn}
-          actionSpec="l"
-        />
-      </>
-      )}
-      {stage.pMove_r && (<>
-        <LCtrl
-          topLbl={"RIGHT"}
-          opacity={"1"}
-          btmLbl={"FOLD"}
-          action={foldBtn}
-          actionSpec="l"
-        />
-        <RCtrl
-          topLbl={"RIGHT"}
-          opacity={"1"}
-          btmLbl={"PLAY"}
-          action={playBtn}
-          actionSpec="l"
-        />
-      </>
+      {stage.pMove_m && !stage.hideCtrls && (
+        <>
+          <LCtrl
+            topLbl={"MIDDLE"}
+            opacity={total.bet > 0 ? 1 : 0.2}
+            btmLbl={"FOLD"}
+            action={foldBtn}
+            actionSpec="m"
+          />
+          <RCtrl
+            topLbl={"MIDDLE"}
+            opacity={anteBetMade.lmr ? "1" : "0.2"}
+            btmLbl={"PLAY"}
+            action={playBtn}
+            actionSpec="m"
+          />
+        </>
       )}
 
-
-
-
-
+      {stage.pMove_l && !stage.hideCtrls && (
+        <>
+          <LCtrl
+            topLbl={"LEFT"}
+            opacity={"1"}
+            btmLbl={"FOLD"}
+            action={foldBtn}
+            actionSpec="l"
+          />
+          <RCtrl
+            topLbl={"LEFT"}
+            opacity={"1"}
+            btmLbl={"PLAY"}
+            action={playBtn}
+            actionSpec="l"
+          />
+        </>
+      )}
+      {stage.pMove_r && !stage.hideCtrls && (
+        <>
+          <LCtrl
+            topLbl={"RIGHT"}
+            opacity={"1"}
+            btmLbl={"FOLD"}
+            action={foldBtn}
+            actionSpec="r"
+          />
+          <RCtrl
+            topLbl={"RIGHT"}
+            opacity={"1"}
+            btmLbl={"PLAY"}
+            action={playBtn}
+            actionSpec="r"
+          />
+        </>
+      )}
     </div>
   );
 };

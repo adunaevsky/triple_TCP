@@ -50,7 +50,7 @@ export const commonBoxAttr = {
 };
 
 export const commonDisplayLabelsAttr = {
-  x: 56,
+  x: 58,
   textAnchor: "end",
   fontWeight: "bold",
   fontSize: 9,
