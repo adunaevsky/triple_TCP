@@ -62,7 +62,7 @@ const App = () => {
   const [pHandResults, setPHandResults] = useState(initialPlayerHands);
   const [showPResults, setShowPResults] = useState(fourFalse);
 
-  let pResult5, pResult3L, pResult3M, pResult3R;
+  let pResult5, pResult3L, pResult3M, pResult3R, d3Result;
 
   const pFlipCards = () => {
     setCardValues(CardDeck.playerCards);
@@ -88,15 +88,20 @@ const App = () => {
   const [dDeal, setDDeal] = useState([false, false, false]);
   const [dCardValues, setDCardValues] = useState(["", "", ""]);
   const dFlipCards = () => {
-    FlipCards(setDFlip, 3, endRound);
+    setDCardValues(CardDeck.dealerCards);
+    FlipCards(setDFlip, 3, dResult);
   };
 
-  const endRound = ()=>{
-    console.log('round ended');
+  const dResult = ()=>{
+    d3Result = threeCResult.threeCards(CardDeck.dealerCards)
+
+    
+    console.log('round ended', d3Result, CardDeck.dealerCards);
   }
 
   const dDealCards = () => {
     DealCards(setDDeal, 3, CardDeck, "dealer", pFlipCards);
+    
   };
 
   const dClearCards = () => {
@@ -200,7 +205,7 @@ const App = () => {
       dispatchStage({ type: stages.hideCtrls });
       dFlipCards();
 
-      console.log("flip dealer cards here, and reveal results.");
+     // console.log("flip dealer cards here, and reveal results.");
     } else {
       setFadeCards(FadeCardOptions[move]);
       setFadeResults(FadeResultOptions[move]);

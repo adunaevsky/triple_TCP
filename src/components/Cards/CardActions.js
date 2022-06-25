@@ -1,5 +1,6 @@
 export function DealCards(setDeal, totalCards, Deck, target, doneTask) {
   let cardNum = 0;
+  console.log('TO DO fix... too many cards dealt.');
   let dealInterval = setInterval(() => {
     cardNum++;
     setDeal(() => {
@@ -8,6 +9,7 @@ export function DealCards(setDeal, totalCards, Deck, target, doneTask) {
         if (i < cardNum) {
           result.push(true);
           Deck.getCard(i, target);
+          console.log('got a card!');
         } /* else result.push(false); */
       }
       return result;

@@ -12,9 +12,11 @@ class Deck {
       var cardsInDeck = this.deck.length;
       if (belongsTo === "player") {
         this.playerCards[cardNum] = this.deck[cardsInDeck - 1];
+        console.log('player', this.playerCards[cardNum], cardNum);
       }
       if (belongsTo === "dealer") {
         this.dealerCards[cardNum] = this.deck[cardsInDeck - 1];
+        console.log('dealer', this.dealerCards[cardNum], cardNum);
       }
       this.deck.pop();
     }
