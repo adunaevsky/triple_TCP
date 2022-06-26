@@ -104,18 +104,6 @@ const App = () => {
 
     dispatchStage({ type: stages.showDealerResult });
 
-    /*  console.log('todo: calculate wins and and adjust player balance.');
-    console.log(pResult5, pResult3L, pResult3M, pResult3R, d3Result); */
-    /* 
-    var LResultLbl = threeCResult.pResult(
-      d3Result.rank,
-      pResult3L.rank,
-      d3Result.tieBreaker,
-      pResult3L.tieBreaker,
-      dQualify,
-      fold.l
-    ); */
-
     setDHandResult({ fill: d3Result.fill, label: d3Result.dLabel });
 
     var results = {
@@ -145,14 +133,17 @@ const App = () => {
       ),
     };
 
-    setResultLbl(results);
-
-    //    console.log("to do: record fold decision!", LResultLbl);
-
-    console.log(results);
-    console.log('to do: show win / push / no win !');
+ 
 
     setTimeout(() => {
+
+      setResultLbl(results);
+
+      //    console.log("to do: record fold decision!", LResultLbl);
+  
+      console.log(results);
+      console.log("to do: show win / push / no win !");
+
       dispatchStage({ type: stages.endRound });
     }, 300);
   };
@@ -322,10 +313,11 @@ const App = () => {
           show={showPResults}
           fade={fadeResults}
           outcome={resultLbl}
+          end={stage.endRound}
         />
       )}
       {(stage.showDealerResult || stage.endRound) && (
-        <DealerHand result={dHandResult}  />
+        <DealerHand result={dHandResult} />
       )}
 
       {stage.bet && (
