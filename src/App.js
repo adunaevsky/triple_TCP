@@ -227,6 +227,7 @@ const App = () => {
 
   const playBtn = (pos) => {
     updateBet("play", pos, bet.ante[pos]);
+    console.log('to do: update overall balance!');
     displayMoveOptions(NextGameStage[pos]);
   };
   const foldBtn = (pos) => {
