@@ -13,7 +13,7 @@ import PlayerHands, {
   SetPHands,
 } from "./components/ResultLabels/PlayerHands";
 
-import DealerHand from './components/ResultLabels/DealerHand'
+import DealerHand from "./components/ResultLabels/DealerHand";
 
 import {
   DealCards,
@@ -34,7 +34,7 @@ import {
   FadeCardOptions,
   FadeResultOptions,
   NextGameStage,
-  initDHandResult
+  initDHandResult,
 } from "./appSpecs";
 
 import { useState, useReducer, useEffect } from "react";
@@ -44,6 +44,7 @@ CardDeck.newDeck();
 
 const fiveCResult = new result5C();
 const threeCResult = new result3C();
+let pResult5, pResult3L, pResult3M, pResult3R, d3Result;
 
 const App = () => {
   const [bet, setBet] = useState(initBet);
@@ -66,8 +67,8 @@ const App = () => {
   const [showPResults, setShowPResults] = useState(fourFalse);
 
   const [dHandResult, setDHandResult] = useState(initDHandResult);
-
-  let pResult5, pResult3L, pResult3M, pResult3R, d3Result;
+  const [fold, setFold] = useState({ l: false, m: false, r: false });
+  const [resultLbl, setResultLbl] = useState({ l: "", m: "", r: "" });
 
   const pFlipCards = () => {
     setCardValues(CardDeck.playerCards);
@@ -97,24 +98,67 @@ const App = () => {
   };
 
   const dResult = () => {
-    d3Result = threeCResult.threeCards(CardDeck.dealerCards)
+    d3Result = threeCResult.threeCards(CardDeck.dealerCards);
+
+    var dQualify = threeCResult.dQualify(d3Result, CardDeck.dealerCards);
 
     dispatchStage({ type: stages.showDealerResult });
 
-    console.log('todo: calculate wins and and adjust player balance.');
+    /*  console.log('todo: calculate wins and and adjust player balance.');
+    console.log(pResult5, pResult3L, pResult3M, pResult3R, d3Result); */
+    /* 
+    var LResultLbl = threeCResult.pResult(
+      d3Result.rank,
+      pResult3L.rank,
+      d3Result.tieBreaker,
+      pResult3L.tieBreaker,
+      dQualify,
+      fold.l
+    ); */
 
     setDHandResult({ fill: d3Result.fill, label: d3Result.dLabel });
 
+    var results = {
+      l: threeCResult.pResult(
+        d3Result.rank,
+        pResult3L.rank,
+        d3Result.tieBreaker,
+        pResult3L.tieBreaker,
+        dQualify,
+        fold.l
+      ),
+      m: threeCResult.pResult(
+        d3Result.rank,
+        pResult3M.rank,
+        d3Result.tieBreaker,
+        pResult3M.tieBreaker,
+        dQualify,
+        fold.m
+      ),
+      r: threeCResult.pResult(
+        d3Result.rank,
+        pResult3R.rank,
+        d3Result.tieBreaker,
+        pResult3R.tieBreaker,
+        dQualify,
+        fold.r
+      ),
+    };
+
+    setResultLbl(results);
+
+    //    console.log("to do: record fold decision!", LResultLbl);
+
+    console.log(results);
+    console.log('to do: show win / push / no win !');
+
     setTimeout(() => {
       dispatchStage({ type: stages.endRound });
-
-    }, 300)
-
-  }
+    }, 300);
+  };
 
   const dDealCards = () => {
     DealCards(setDDeal, 3, CardDeck, "dealer", pFlipCards);
-
   };
 
   const dClearCards = () => {
@@ -201,6 +245,7 @@ const App = () => {
       pResult3L = threeCResult.threeCards(CardDeck.playerCards.slice(0, 3));
       pResult3M = threeCResult.threeCards(CardDeck.playerCards.slice(1, 4));
       pResult3R = threeCResult.threeCards(CardDeck.playerCards.slice(2));
+
       SetPHands(setPHandResults, pResult5, pResult3L, pResult3M, pResult3R);
       RevealResults(setShowPResults, displayMoveOptions);
       dispatchStage({ type: stages.showPlayerHands });
@@ -227,17 +272,22 @@ const App = () => {
 
   const playBtn = (pos) => {
     updateBet("play", pos, bet.ante[pos]);
-    console.log('to do: update overall balance!');
+    setFold({ ...fold, [pos]: false });
+    setTotal(() => {
+      return { ...total, balance: total.balance - bet.ante[pos] };
+    });
+
     displayMoveOptions(NextGameStage[pos]);
   };
   const foldBtn = (pos) => {
     displayMoveOptions(NextGameStage[pos]);
+    setFold({ ...fold, [pos]: true });
   };
   const rebet = (pos) => {
-    console.log('to do rebet.');
+    console.log("to do rebet.");
   };
   const rebetAndDeal = (pos) => {
-    console.log('to do rebet and deal.');
+    console.log("to do rebet and deal.");
   };
 
   return (
@@ -267,16 +317,15 @@ const App = () => {
         stage.showDealerResult ||
         stage.endRound ||
         stage.pMove_r) && (
-          <PlayerHands
-            results={pHandResults}
-            show={showPResults}
-            fade={fadeResults}
-          />
-        )}
-      {(stage.showDealerResult || stage.endRound) && (
-        <DealerHand
-          result={dHandResult}
+        <PlayerHands
+          results={pHandResults}
+          show={showPResults}
+          fade={fadeResults}
+          outcome={resultLbl}
         />
+      )}
+      {(stage.showDealerResult || stage.endRound) && (
+        <DealerHand result={dHandResult}  />
       )}
 
       {stage.bet && (
