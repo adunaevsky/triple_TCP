@@ -1,4 +1,5 @@
-.playerCardLbls {
+.playerCardLbls,
+.dealerCardLbls {
     position: relative;
 }
 
@@ -7,10 +8,16 @@
 }
 
 @media all and (min-aspect-ratio: 970 / 600) {
+
     /*LANDSCAPE MODE*/
     .playerCardLbls {
         top: 70%;
     }
+
+    .dealerCardLbls {
+        top: 40%;
+    }
+
     .lblSizeBig {
         width: 56%;
         padding-bottom: 4%;
@@ -20,10 +27,16 @@
 }
 
 @media all and (max-aspect-ratio: 520 / 600) {
+
     /*PORTRAIT MODE*/
     .playerCardLbls {
         top: 50%;
     }
+
+    .dealerCardLbls {
+        top: 30%;
+    }
+
     .lblSizeBig {
         width: 100%;
         padding-bottom: 4%;
@@ -32,10 +45,16 @@
 }
 
 @media all and (max-aspect-ratio: 970 / 600) and (min-aspect-ratio: 520 / 600) {
+
     /*SQUARE (DESKTOP) MODE*/
     .playerCardLbls {
         top: 65%;
     }
+
+    .dealerCardLbls {
+        top: 40%;
+    }
+
     .lblSizeBig {
         width: 68%;
         padding-bottom: 4%;

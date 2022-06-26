@@ -13,6 +13,8 @@ import PlayerHands, {
   SetPHands,
 } from "./components/ResultLabels/PlayerHands";
 
+import DealerHand from './components/ResultLabels/DealerHand'
+
 import {
   DealCards,
   FlipCards,
@@ -32,6 +34,7 @@ import {
   FadeCardOptions,
   FadeResultOptions,
   NextGameStage,
+  initDHandResult
 } from "./appSpecs";
 
 import { useState, useReducer, useEffect } from "react";
@@ -61,6 +64,8 @@ const App = () => {
 
   const [pHandResults, setPHandResults] = useState(initialPlayerHands);
   const [showPResults, setShowPResults] = useState(fourFalse);
+
+  const [dHandResult, setDHandResult] = useState(initDHandResult);
 
   let pResult5, pResult3L, pResult3M, pResult3R, d3Result;
 
@@ -93,8 +98,17 @@ const App = () => {
 
   const dResult = () => {
     d3Result = threeCResult.threeCards(CardDeck.dealerCards)
-    console.log('round ended', d3Result, CardDeck.dealerCards);
+
     dispatchStage({ type: stages.showDealerResult });
+
+    console.log('todo: calculate wins and and adjust player balance.');
+
+    setDHandResult({ fill: d3Result.fill, label: d3Result.dLabel });
+
+    setTimeout(() => {
+      dispatchStage({ type: stages.endRound });
+
+    }, 300)
 
   }
 
@@ -218,6 +232,12 @@ const App = () => {
   const foldBtn = (pos) => {
     displayMoveOptions(NextGameStage[pos]);
   };
+  const rebet = (pos) => {
+    console.log('to do rebet.');
+  };
+  const rebetAndDeal = (pos) => {
+    console.log('to do rebet and deal.');
+  };
 
   return (
     <div className="playingField">
@@ -244,6 +264,7 @@ const App = () => {
         stage.pMove_l ||
         stage.hideCtrls ||
         stage.showDealerResult ||
+        stage.endRound ||
         stage.pMove_r) && (
           <PlayerHands
             results={pHandResults}
@@ -251,6 +272,11 @@ const App = () => {
             fade={fadeResults}
           />
         )}
+      {(stage.showDealerResult || stage.endRound) && (
+        <DealerHand
+          result={dHandResult}
+        />
+      )}
 
       {stage.bet && (
         <>
@@ -321,6 +347,24 @@ const App = () => {
             btmLbl={"PLAY"}
             action={playBtn}
             actionSpec="r"
+          />
+        </>
+      )}
+      {stage.endRound && (
+        <>
+          <LCtrl
+            topLbl={"REBET"}
+            opacity={"1"}
+            btmLbl={""}
+            action={rebet}
+            actionSpec=""
+          />
+          <RCtrl
+            topLbl={"REBET"}
+            opacity={"1"}
+            btmLbl={"& DEAL"}
+            action={rebetAndDeal}
+            actionSpec=""
           />
         </>
       )}
