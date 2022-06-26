@@ -66,7 +66,6 @@ const App = () => {
 
   const pFlipCards = () => {
     setCardValues(CardDeck.playerCards);
-    //console.log(pCardValues, '???', CardDeck.playerCards);
     FlipCards(setPFlip, 5, showPHandResults);
   };
 
@@ -92,16 +91,16 @@ const App = () => {
     FlipCards(setDFlip, 3, dResult);
   };
 
-  const dResult = ()=>{
+  const dResult = () => {
     d3Result = threeCResult.threeCards(CardDeck.dealerCards)
-
-    
     console.log('round ended', d3Result, CardDeck.dealerCards);
+    dispatchStage({ type: stages.showDealerResult });
+
   }
 
   const dDealCards = () => {
     DealCards(setDDeal, 3, CardDeck, "dealer", pFlipCards);
-    
+
   };
 
   const dClearCards = () => {
@@ -131,7 +130,7 @@ const App = () => {
       dispatchStage({ type: stages.betDone });
 
       setTimeout(() => {
-        dealCards();
+        pDealCards();
       }, durations.cashBalance);
     } else {
       console.log("cannot bet");
@@ -182,10 +181,6 @@ const App = () => {
 
   const [stage, dispatchStage] = useReducer(stageReducer, stageOptions);
 
-  const dealCards = () => {
-    pDealCards();
-  };
-
   const showPHandResults = () => {
     setTimeout(() => {
       pResult5 = fiveCResult.fiveCards(CardDeck.playerCards);
@@ -205,7 +200,7 @@ const App = () => {
       dispatchStage({ type: stages.hideCtrls });
       dFlipCards();
 
-     // console.log("flip dealer cards here, and reveal results.");
+      // console.log("flip dealer cards here, and reveal results.");
     } else {
       setFadeCards(FadeCardOptions[move]);
       setFadeResults(FadeResultOptions[move]);
@@ -248,13 +243,14 @@ const App = () => {
         stage.pMove_m ||
         stage.pMove_l ||
         stage.hideCtrls ||
+        stage.showDealerResult ||
         stage.pMove_r) && (
-        <PlayerHands
-          results={pHandResults}
-          show={showPResults}
-          fade={fadeResults}
-        />
-      )}
+          <PlayerHands
+            results={pHandResults}
+            show={showPResults}
+            fade={fadeResults}
+          />
+        )}
 
       {stage.bet && (
         <>

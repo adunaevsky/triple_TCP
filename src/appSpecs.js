@@ -55,7 +55,8 @@ export const initStageOptions = {
   pMove_l: false,
   pMove_r: false,
   revealDealer: false,
-  hideCtrls: false
+  hideCtrls: false,
+  showDealerResult: false
 };
 export const initStages = {
   bet: "deal",
@@ -63,11 +64,12 @@ export const initStages = {
   dealCards: "dealCards",
   dealCounterDone: "dealCounterDone",
   showPlayerHands: "showPlayerHands",
-  hideCtrls:'hideCtrls',
+  hideCtrls: 'hideCtrls',
   pMove_m: "pMove_m",
   pMove_l: "pMove_l",
   pMove_r: "pMove_r",
-  revealDealer: "revealDealer"
+  revealDealer: "revealDealer",
+  showDealerResult: "showDealerResult"
 };
 
 export const NextGameStage = {
